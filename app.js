@@ -12,6 +12,7 @@ var yaml = require('js-yaml');
 const { exec } = require('child_process');
 const multer = require('multer');
 var uniqueFilename = require('unique-filename');
+var rimraf = require('rimraf');
 
 var shortid = require('shortid');
 
@@ -192,14 +193,22 @@ app.get('/delete/:id', function(req,res,next){
   var blokNamen = getBlokNamen();
   var listToDelete = [];
   var item = alleBlokken.find(item => item.id == req.params.id);
-  fs.unlinkSync('./public/data/blokken/' + item.name.replace(/\s/g,'') + '.yml');
-  if (item.bloktype !== "contact"){
-    fs.unlinkSync('./public/data/blokken/HTML/' + item.name.replace(/\s/g,'') + '.html');
-  }
+  console.log(item);
+
   
   listToDelete.push(item.id);
   for(var i = 0; i < alleBlokken.length; i++) {
-    var obj = alleBlokken[i];
+    if (alleBlokken[i].id == item.id){
+      if (alleBlokken[i].bloktype === "kolom"){
+        rimraf('./public/data/blokken/HTML/' + item.name.replace(/\s/g,''), function () { console.log('done'); });
+        fs.unlinkSync('./public/data/blokken/' + item.name.replace(/\s/g,'') + '.yml');
+      } else if(alleBlokken[i].bloktype === "contact") {
+        fs.unlinkSync('./public/data/blokken/' + item.name.replace(/\s/g,'') + '.yml');
+      } else {
+        fs.unlinkSync('./public/data/blokken/' + item.name.replace(/\s/g,'') + '.yml');
+        fs.unlinkSync('./public/data/blokken/HTML/' + item.name.replace(/\s/g,'') + '.html');
+      }
+    }
 
     
     if (alleBlokken[i].id > req.params.id) {
@@ -231,20 +240,29 @@ app.get('/delete/:id', function(req,res,next){
         wstream.write('checked: ' + alleBlokken[i].checked + '\n');
         wstream.write('id: ' + `${alleBlokken[i].id - 1}` + '\n');
         wstream.end(); 
-        /*fs.writeFileSync("./public/data/blokken/" + exports.blokken[i].name.replace(/\s/g,'') + ".yml",
-`name: ${exports.blokken[i].name}
-titel: ${exports.blokken[i].titel}
-html: ${exports.blokken[i].titel.replace(/\s/g,'')}
-bloktype: ${exports.blokken[i].bloktype}
-backgroundColor: '${exports.blokken[i].backgroundColor}'
-titelColor: '${exports.blokken[i].titelColor}'
-tekstColor: '${exports.blokken[i].tekstColor}'
-backgroundImage: ${exports.blokken[i].backgroundImage}
-checked: ${exports.blokken[i].checked}
-id: ${exports.blokken[i].id - 1}`
-        );*/
-      } else if (alleBlokken.bloktype == "contact") {
-        console.log("miaauw");
+      } else if (alleBlokken[i].bloktype == "contact") {
+     
+        var wstream = fs.createWriteStream(postsFolder + alleBlokken[i].name.replace(/\s/g,'') + '.yml');
+        wstream.write('name: ' + alleBlokken[i].name + '\n');
+        wstream.write('titel: ' + alleBlokken[i].titel + '\n');
+        wstream.write('gsmNr: ' + alleBlokken[i].gsmNr + '\n');
+        wstream.write('telNr: ' + alleBlokken[i].telNr + '\n');
+        wstream.write('adres: ' + alleBlokken[i].adres + '\n');
+        wstream.write('emailAdres: ' + `'${alleBlokken[i].emailAdres}'` + '\n');
+        wstream.write('id: ' + `${alleBlokken[i].id - 1}` + '\n');
+        wstream.write('bloktype: contact');
+        wstream.end();
+      } else if (alleBlokken[i].bloktype == "kolom") {
+        var wstream = fs.createWriteStream(postsFolder + alleBlokken[i].name.replace(/\s/g,'') + '.yml');
+  wstream.write('name: ' + alleBlokken[i].name + '\n');
+  wstream.write('blokTitel: ' + alleBlokken[i].blokTitel + '\n');
+  wstream.write('bloktype: kolom' + '\n');
+  wstream.write('id: ' + `${alleBlokken[i].id - 1}` + '\n');
+  wstream.write('kolomen:' + '\n');
+  for (k = 0; k < alleBlokken[i].kolomen.length; k++) {
+    wstream.write('  - titel: ' + alleBlokken[i].kolomen[k].titel + '\n'+ '    beschrijving: ' + alleBlokken[i].kolomen[k].beschrijving + '\n' + '    afbeelding: ' + alleBlokken[i].kolomen[k].afbeelding + '\n' );
+  }
+  wstream.end();
       }
       
       alleBlokken[i].id = alleBlokken[i].id - 1;
