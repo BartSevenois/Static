@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Home</title>
+    <link rel='stylesheet' href='/stylesheets/<%= stylesheet%>/css/style.css' />
+</head>
+<style>
+    header{
+        background-image: url("/images/<%= post.thumbnail %>");
+
+    }
+</style>
+<body>
+    <%- include('partials/usernav') %>
+<%- include('partials/nav') %>
+<header>
+
+</header>
+
+<div class="container">
+    <div class="post">
+        <div>
+            <h2><%= post.title%></h2>
+            <p><b><%= post.intro%></b></p>
+            <% for(i = 0; i < post.body.length; i++){%>
+            <p class="body"><%= post.body[i]%></p>
+            <%}%>
+            <p>Geschreven door <b><%= post.auteur %></b> op <b><%= post.datum %></b></p>
+        </div>
+        <img src="/images/<%= post.afbeelding %>">
+    </div>
+
+
+</div>
+<%- include('partials/footer') %>
+
+</body>
+</html>

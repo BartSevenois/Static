@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Blokken</title>
+    <link rel='stylesheet' href='/stylesheets/css/style.css' />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css?family=Lato|Open+Sans|Roboto" rel="stylesheet">
+    <script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
+    <script type="text/javascript" src="javascripts/tinymce/tinymce.min.js"></script>
+    <script type="text/javascript">
+        tinymce.init({
+            selector: '#myTextarea'
+        });
+    </script>
+</head>
+<style>
+    header{
+        background-image: url("/images/");
+    }
+</style>
+<body>
+<%- include('partials/backendNav') %>
+
+    <div class="containerBackEnd">
+      <div class="left col-2">
+          <%- include('partials/smartNav') %>
+      </div>
+      <div class="right col-10">
+        <h1 class="col-12">Aangemaakte blokken</h1>
+        <div class="blokken">
+          <% for (var i = 0; i < blokken.length; i ++) {%>
+            <div class="col-12 blok">
+              <p class="id" style="float: left; width: 1%"><%= blokken[i].id%></p>
+              <h4><%= blokken[i].name%></h4>
+              <a href="./delete/<%= blokken[i].id%>"><i class="fas fa-trash-alt"></i></a>
+              <% if (blokken[i].bloktype == "tekst"){%>
+              <a href="./blokken/<%= blokken[i].name%>?type=<%- 'tekst'%>"><i class="fas fa-pencil-alt"></i> </a>
+              <%} if(blokken[i].bloktype == "afbeelingEnTekst"){%>
+              <a href="./blokken/<%= blokken[i].name%>?type=<%- 'afbeeldingEnTekst'%>"><i class="fas fa-pencil-alt"></i> </a>
+              <%}%>
+              <% if(blokken[i].bloktype == "contact"){%>
+              <a href="./blokken/<%= blokken[i].name%>?type=<%- 'contact'%>"><i class="fas fa-pencil-alt"></i> </a>
+              <%}%>
+              <% if(blokken[i].bloktype == "kolom"){%>
+              <a href="./blokken/<%= blokken[i].name%>?type=<%- 'kolom'%>"><i class="fas fa-pencil-alt"></i> </a>
+              <%}%>
+
+              
+              <p class="bloktype"><b>Type:</b> <%= blokken[i].bloktype%></p>
+            </div>
+          <%}%>
+        </div>
+
+        
+        
+      </div>
+    </div>
+  </body>
+  </html>

@@ -1,0 +1,25 @@
+.alleBlokken {
+  h1 {
+    padding-bottom: 20px;
+  }
+  .blok {
+    margin-bottom: 20px;
+    padding: 10px 10px;
+    img {
+      width: 60px;
+      float: left;
+    }
+    h4 {
+      float: left;
+      padding: 19px 10px;
+      color: #393232;
+    }
+    a {
+      background-color: white;
+      border-bottom: 0 none;
+  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.46);
+      overflow: hidden;
+      display: block;
+    }
+  }
+}

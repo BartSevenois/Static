@@ -1,0 +1,10 @@
+name: Welkom
+titel: Welkom
+html: Welkom
+bloktype: tekst
+backgroundColor: '#ffffff'
+titelColor: '#323232'
+tekstColor: '#323232'
+backgroundImage: 
+checked: false
+id: 0

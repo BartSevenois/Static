@@ -1,0 +1,14 @@
+name: Diensten
+blokTitel: Diensten
+bloktype: kolom
+id: 2
+kolomen:
+  - titel: Dienst 1
+    beschrijving: Diensten0
+    afbeelding: architecture-bathroom-contemporary-280209.jpg
+  - titel: Diesnt 2
+    beschrijving: Diensten1
+    afbeelding: centraleverwarming.jpg
+  - titel: Dienst 3
+    beschrijving: Diensten2
+    afbeelding: industrie.png

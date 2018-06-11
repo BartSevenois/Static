@@ -1,0 +1,119 @@
+.gebruikersNavigatie {
+  background-color: #393232;
+  position: fixed;
+  width: 100%;
+  z-index: 1;
+  nav {
+    ul {
+      margin: 0px 30px;
+      padding: 8px 0px 3px 0px;
+      li {
+        display: inline-block;
+        margin-right: 20px;
+        a {
+          float: left;
+          color: white;
+          text-decoration: none;
+          margin-top: -1px;
+          font-family: 'Open Sans', sans-serif;
+          font-size: 0.8em;
+        }
+        .icon {
+          color: white;
+          display: block;
+          float: left;
+          margin-right: 6px;
+        }
+      }
+    }
+  }
+}
+
+.navigatie {
+  position: fixed;
+  width: 100%;
+  margin-top: 33px;
+  overflow: hidden;
+  background-color: white;
+  z-index: 1;
+  -webkit-box-shadow: 0 1px 4px #777;
+  -moz-box-shadow: 0 1px 4px #777;
+  box-shadow: 0 1px 4px #777;
+  nav {
+    margin: 0px 50px;
+    display: block;
+
+    }
+    .active {
+      color: #E36161;
+    }
+    .test {
+      display: none;
+    }
+    .icon {
+      display: none;
+    }
+    a {
+      float: left;
+      display: block;
+      color: black;
+      text-align: center;
+      padding: 30px 16px;
+      text-decoration: none;
+      font-size: 15px;
+      transition: color 0.7s;
+      &:hover {
+        color: #E36161;     
+        transition: color 0.7s;
+      }
+    }
+    p{
+      float: right;
+      padding: 30px 0px;
+      margin-right: 100px;
+      color: #E36161;
+    }
+}
+@media screen and (max-width: 600px) {
+
+  .navigatie a.icon {
+    float: right;
+    display: block;
+  }
+  .navigatie {
+    display: block;
+    .test {
+    display: block;
+    margin: 30px 66px;
+    float: left;
+    font-size: 15px;
+  }
+  }
+
+  .navigatie nav {
+    display: none;
+  }
+}
+
+
+
+@media screen and (max-width: 600px) {
+  .responsive nav {
+    display: block;
+    a {
+      float: none;
+      text-align: left;
+    }
+  }
+  .navigatie.responsive {
+    .test {
+      display: none !important;
+    }
+    .icon {
+      position: absolute;
+      top: 0px;
+      right: 0;
+    }
+  }
+  
+}

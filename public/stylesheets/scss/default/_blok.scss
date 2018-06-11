@@ -1,0 +1,141 @@
+.blok {
+  overflow: hidden;
+  h1 {
+    text-align: center;
+    margin-bottom: 40px;
+  }
+  .center {
+    padding: 80px 0px 90px 0px;
+    width: 80%;
+    margin: auto;
+    overflow: hidden;
+    .braka {
+      height:auto;
+        vertical-align: middle;
+        font-size: 0;
+    }
+    .tekst {
+      width:50%;
+        display: inline-block;
+        font-size: initial;
+        padding-right: 20px;
+      /* IE 7 hack */
+        *zoom:1;
+        *display: inline;
+        vertical-align: middle;
+    }
+    .afbeelding {
+      padding-left: 20px;
+      width: 50%;
+      height: auto;
+        display: inline-block;
+      /* IE 7 hack */
+        *zoom:1;
+        *display: inline;
+        vertical-align: middle;
+        img {
+          width: 100%;
+        }
+    }
+
+  }
+  .center.contact {
+    .contactGegevens {
+      background-color: #323232;
+      padding: 60px 40px;
+      width:50%;
+        display: inline-block;
+      /* IE 7 hack */
+        *zoom:1;
+        *display: inline;
+        vertical-align: middle;
+      ul {
+        list-style: none;
+        color: white;
+        li {
+          font-size: 16px;
+          a {
+            color: white;
+          }
+          margin-bottom: 20px;
+          span {
+            width:50px;
+              height:50px;
+              background-color:white;
+              border-radius:100%;
+              line-height:50px;
+              text-align:center;
+              vertical-align:middle;
+              display:inline-block;
+              margin-right: 15px;
+          
+            .icon {
+              font-size: 20px;
+              color: #323232;
+            }
+            
+          }
+          
+          p {
+            display: inline-block;
+          }
+          &:last-of-type {
+                margin-bottom: 0px;
+              }
+        }
+      }
+    }
+    .email {
+      padding-right: 50px;
+      width: 50%;
+      height: auto;
+        display: inline-block;
+      /* IE 7 hack */
+        *zoom:1;
+        *display: inline;
+        vertical-align: middle;
+        .buttonHolder {
+          text-align: left;
+        }
+        button {
+          background-color: #323232;
+          border: none;
+          color: white;
+          padding: 15px 50px;
+          margin-top: 20px;
+          width: 100%;
+          font-size: 16px;
+          cursor: pointer;
+        }
+    }
+  } 
+}
+
+@media (max-width: 991px) {
+  .blok {
+    .center {
+      .tekst {
+        width: 100%;
+        text-align: center;
+        margin-bottom: 40px;
+      }
+      .afbeelding{
+        width: 100%;
+        img {
+          width: 100%;
+        }
+      }
+    }
+
+    .center.contact {
+      .contactGegevens {
+        width: 100%;
+      }
+      .email {
+        width: 100%;
+        padding-left: 0px;
+        margin-top: 30px;
+      }
+    }
+  }
+}
