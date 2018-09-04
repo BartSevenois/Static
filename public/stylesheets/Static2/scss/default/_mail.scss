@@ -1,0 +1,58 @@
+.alleMails {
+	.email {
+		border-bottom: 1px solid black;
+		padding: 10px 0px;
+        overflow: hidden;
+		&:last-of-type {
+    		border-bottom: none;
+    	}
+    	&:first-of-type {
+    		border-bottom: 1px solid black;
+    	}
+    	a {
+    		text-decoration: none;
+    		color: black;
+    	}
+    	.groep {
+    		width: 30%;
+    		float: left;
+    		white-space: nowrap;
+  			overflow: hidden;
+  			text-overflow: ellipsis;
+  			max-width: 30%;
+    		.naam {
+    		font-weight: bold;
+    		float: left;
+            color: #E36161;
+    	}
+    		.onderwerp {
+    	       width: 70%;
+            display: inline-block;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            max-width: 50%;
+            overflow: hidden;
+    		float: left;
+    		span {
+    			font-size: 22px;
+    			font-weight: bold;
+    		}
+    	}
+    	}
+    	
+    	.datum {
+    	
+    	}
+    	.bericht {
+    		white-space: nowrap;
+  			overflow: hidden;
+  			text-overflow: ellipsis;
+  			max-width: 65%;
+  			float: left;
+  			margin-right: 30px;
+    	}
+    	
+	}
+}
+

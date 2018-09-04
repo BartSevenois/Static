@@ -9,14 +9,21 @@ var modal = document.getElementById('myModal');
 function setAfbeelding(ok) {
 
   var img = document.getElementById(ok),
- style = img.currentStyle || window.getComputedStyle(img, false),
- bi = style.backgroundImage.slice(4, -1).replace(/"/g, "");
- bi = bi.replace("http://localhost:3000/images/", "");
+  style = img.currentStyle || window.getComputedStyle(img, false),
+  bi = style.backgroundImage.slice(4, -1).replace(/"/g, "");
 
- document.getElementById(id).value = bi;
+  var result = /[^/]*$/.exec(bi)[0];
+  bi = bi.replace("http://localhost:3000/images/", "");
+  console.log(result);
+  console.log(id);
 
+  document.getElementById(id).value = result;
+ 
+     document.getElementById( id + "IMG").src = "../images/" + result;
 
-modal.style.display = "none";
+  
+ 
+  modal.style.display = "none";
      //var filename = fullPath.replace(/^.*[\\\/]/, '');
      // or, try this, 
      // var filename = fullPath.split("/").pop();
@@ -26,5 +33,5 @@ modal.style.display = "none";
 
 function close() {
     modal.style.display = "none";
-    alert("kak");
+    console.log("kak");
 }

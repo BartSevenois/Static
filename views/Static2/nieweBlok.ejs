@@ -1,0 +1,1010 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+    
+    <link rel='stylesheet' href='/stylesheets/<%= config.thema%>/css/style.css'>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Lato|Open+Sans|Roboto" rel="stylesheet">
+    
+<% if (tweedeTest === "nieuw"){%>
+<link rel='stylesheet' href='stylesheets/<%= config.thema%>/spectrum.css' />
+<title>New blok</title>
+<%} if (tweedeTest === "herwerk") {%>
+<link rel='stylesheet' href='../stylesheets/<%= config.thema%>/spectrum.css' />
+<title><%= blok.name%></title>
+<%}%>
+
+
+
+</head>
+
+<style>
+  .err {
+    display: block;
+    color: red;
+  }
+  .kolomForm .kolom {
+    border-bottom: 0 none;
+    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.46);
+    padding: 15px;
+     margin-bottom: 20px;
+
+  }
+  .kolomForm .kolom input {
+    display: block;
+    width: 100%;
+
+  }
+  .form:after{
+    clear: both;
+    content: "";
+    display: block;
+}
+
+</style>
+<script>
+    function includeHTML() {
+      var z, i, elmnt, file, xhttp;
+      /*loop through a collection of all HTML elements:*/
+      z = document.getElementsByTagName("*");
+      for (i = 0; i < z.length; i++) {
+        elmnt = z[i];
+        /*search for elements with a certain atrribute:*/
+        file = elmnt.getAttribute("w3-include-html");
+        if (file) {
+          /*make an HTTP request using the attribute value as the file name:*/
+          xhttp = new XMLHttpRequest();
+          xhttp.onreadystatechange = function() {
+            if (this.readyState == 4) {
+              if (this.status == 200) {elmnt.innerHTML = this.responseText;}
+              if (this.status == 404) {elmnt.innerHTML = "Page not found.";}
+              /*remove the attribute, and call this function once more:*/
+              elmnt.removeAttribute("w3-include-html");
+              includeHTML();
+            }
+          }      
+          xhttp.open("GET", file, true);
+          xhttp.send();
+          /*exit the function:*/
+          return;
+        }
+      }
+  };
+</script>
+<body>
+<%- include('partials/backendNav') %>
+
+<div class="containerBackEnd">
+  <div class="left col-2">
+    <%- include('partials/smartNav') %>
+  </div>
+
+  <div class="right col-10">    
+    <!-- Afbeelding en tekst formulier -->
+    <% if (test === "afbeeldingEnTekst"){%>
+    <h2>Afbeelding en tekst blok</h2>
+    <div class="nieuwType1">
+      <form name="afbeeldingEnTekstForm" class="afbeeldingEnTekstFormulier formulier" action="/makeAfbeeldingEnTekst" method="POST" onsubmit="return validateAfbeeldingEnTekst()">
+        <div class="box name">
+          <div style="overflow: hidden; margin-bottom: 10px;">
+            <label>Naam blok</label>
+            <input class="textfield" type="text" name="naam" value="<% if(blok !== 'undefined'){ %><%= blok.name%><% }else{ %><% } %>" id="name">
+          </div>
+          <span class="err" id="errNaam"></span>
+        </div>
+
+        <div class="box title">
+          <label>Titel</label>
+          <div style="overflow: hidden;">
+            <input style="float: left; margin-right: 20px;" id ="titel" class="textfield" type="text" name="titel" value="<% if(blok !== 'undefined'){ %><%= blok.titel%><% }else{ %><% } %>">
+            <input name="test" type='text' class="titelKleur"/>
+            <input style="display: none;" class="textfield" type="text" name="titelcolor" value="<% if(blok !== 'undefined'){ %><%= blok.titelColor%><% }else{ %>#323232<% } %>" id="hexTitelKleur">
+            <% if(blok !== 'undefined'){ %>
+            <p id="hexTitelKleurLog" class="hexLog"><%= blok.titelColor%></p>
+            <% } else { %>
+            <p id="hexTitelKleurLog" class="hexLog">#323232</p>
+            <%}%>
+          </div>
+          <span style="display: block; width: 100%;" class="err" id="errTitel"></span>
+        </div>
+
+        <div class="box tekst">
+          <label>Tekst</label>
+          <textarea name="text" id="myTextarea" style="height: 250px; width: 99%;"></textarea><br>
+          <input name="test" type='text' class="tekstKleur"/>
+          <input style="display: none;" class="textfield" type="text" name="tekstcolor" value="<% if(blok !== 'undefined'){ %><%= blok.tekstColor%><% }else{ %>#323232<% } %>" id="hexTekstKleur">
+            <% if(blok !== 'undefined'){ %>
+            <p id="hexTekstKleurLog" class="hexLog"><%= blok.tekstColor%></p>
+            <% } else { %>
+            <p id="hexTekstKleurLog" class="hexLog">#323232</p>
+            <%}%>
+        </div>
+         
+        <div class="imageFile box">
+          <div style="overflow: hidden; margin-bottom: 20px;">
+            <span style="display: block; margin-bottom: 10px">Afbeelding</span>
+            <span class="err" id="errAfbeelding"></span>
+          
+            <input style="display: none;" type="text" class="textfield" name="afbeelding1" id ="afbeelding1" value="<% if(blok !== 'undefined'){ %><%= blok.afbeelding%><% }else{ %><% } %>">
+
+            <div style="width: 100%; margin-bottom: 30px;">
+              <img id="afbeelding1IMG" style="width: 30%; display: block;"  src="<% if (blok !== 'undefined'){%> <%= '../images/' + blok.afbeelding %><%}else {}%>"> 
+            </div>
+            <a style="" onclick="getAfbeelding(this.id)" id="afbeelding1" class="openImages">Afbeeldingen</a>
+          </div>
+          <span style="display: block; width: 100%;" class="err" id="errAfbeelding1"></span>
+          
+             
+        </div>
+
+        <div class="box layout">
+          <h3>Lay-out</h3>
+          
+            <div style="overflow: hidden;">
+              <label style="float: left">Achtergrond</label>
+              <label style="float: right; margin-right: 100px;" class="checkbox">
+                <input name = "checkbox" type="checkbox" id="checkbox" />Afbeelding
+              </label>
+            </div>
+            <div style="display: block;" class="kleur" id="kleur">
+              <input name="test" type='text' class="achtergrondKleur"/>
+              <input style="display: none;" class="textfield" type="text" name="backgroundcolor" value="<% if(blok !== 'undefined'){ %><%= blok.backgroundColor%><% }else{ %>#ffffff<% } %>" id="hexAchtergrondKleur">
+              <% if(blok !== 'undefined'){ %>
+                <p id="hexAchtergrondKleurLog" class="hexLog"><%= blok.achtergrondColor%></p>
+              <% } else { %>
+                <p id="hexAchtergrondKleurLog" class="hexLog">#ffffff</p>
+              <%}%>
+
+            </div>
+
+            <div class="imageFile box" id = "afbeeldingVeld">
+              <span class="err" id="errAfbeelding"></span>
+              <input style="display: none;" class="textfield" type="text" name="afbeelding2" id = "afbeelding2" value="<% if(blok !== 'undefined'){ %><%= blok.achtergrondafbeelding%><% }else{ %><% } %>">
+              <div style="width: 100%; margin-bottom: 30px;">
+                <img style="width: 30%;" id="afbeelding2IMG" src="<% if (blok !== 'undefined'){%> <%= '../images/' + blok.achtergrondafbeelding %><%}else {}%>">
+              </div>
+              <a style="" onclick="getAfbeelding(this.id)" id="afbeelding2" class="openImages">Afbeeldingen</a>  
+            </div>
+         </div> 
+         
+
+
+        <input type="text" name="blokType" value="afbeelingEnTekst" style="display: none">
+        <input type="text" name="type" value="<%= tweedeTest%>" style="display: none">
+        <input type="text" name="huidigeNaam" id="huidigeNaam" value="<%= blok.name%>" style="display: none">
+        <input type="text" name="ID" value="<% if(blok !== 'undefined'){ %><%= blok.id%><% }else{ %><% } %>" style="display: none">
+        <button type="submit" class="btn">Opslaan</button>
+      </form>
+      
+    </div>     
+    <%}%>
+
+    <% if (test === "tekst"){%>
+    <h2>Nieuwe blok: <%= test%></h2>
+    <div class="nieuwType1">
+      <form name="tekstForm" class="tekstFormulier formulier" action="/makeTekst" method="POST" onsubmit="return validateTekst()">
+        <div class="box name">
+          <div style="overflow: hidden; margin-bottom: 10px;">
+            <label>Naam blok</label>
+            <input class="textfield" type="text" name="naam" value="<% if(blok !== 'undefined'){ %><%= blok.name%><% }else{ %><% } %>" id="name">
+          </div>
+          <span class="err" id="errNaam"></span>
+        </div>
+
+        <div class="box title">
+          <label>Titel</label>
+          <div style="overflow: hidden;">
+            <input style="float: left; margin-right: 20px;" id ="titel" class="textfield" type="text" name="titel" value="<% if(blok !== 'undefined'){ %><%= blok.titel%><% }else{ %><% } %>">
+            <input name="test" type='text' class="titelKleur"/>
+            <input style="display: none;" class="textfield" type="text" name="titelcolor" value="<% if(blok !== 'undefined'){ %><%= blok.titelColor%><% }else{ %>#323232<% } %>" id="hexTitelKleur">
+            <% if(blok !== 'undefined'){ %>
+            <p id="hexTitelKleurLog" class="hexLog"><%= blok.titelColor%></p>
+            <% } else { %>
+            <p id="hexTitelKleurLog" class="hexLog">#323232</p>
+            <%}%>
+          </div>
+          <span style="display: block; width: 100%;" class="err" id="errTitel"></span>
+        </div>
+
+        <div class="box tekst">
+          <label>Tekst</label>
+          <textarea name="text" id="myTextarea" style="height: 250px; width: 99%;"></textarea><br>
+          <input name="test" type='text' class="tekstKleur"/>
+          <input style="display: none;" class="textfield" type="text" name="tekstcolor" value="<% if(blok !== 'undefined'){ %><%= blok.tekstColor%><% }else{ %>#323232<% } %>" id="hexTekstKleur">
+            <% if(blok !== 'undefined'){ %>
+            <p id="hexTekstKleurLog" class="hexLog"><%= blok.tekstColor%></p>
+            <% } else { %>
+            <p id="hexTekstKleurLog" class="hexLog">#323232</p>
+            <%}%>
+        </div>
+
+        <div class="box layout">
+          <h3>Lay-out</h3>
+          
+            <div style="overflow: hidden;">
+              <label style="float: left">Achtergrond</label>
+              <label style="float: right; margin-right: 100px;" class="checkbox">
+                <input name = "checkbox" type="checkbox" id="checkbox" />Afbeelding
+              </label>
+            </div>
+            <div style="display: block;" class="kleur" id="kleur">
+              <input name="test" type='text' class="achtergrondKleur"/>
+              <input style="display: none;" class="textfield" type="text" name="backgroundcolor" value="<% if(blok !== 'undefined'){ %><%= blok.backgroundColor%><% }else{ %>#ffffff<% } %>" id="hexAchtergrondKleur">
+              <% if(blok !== 'undefined'){ %>
+                <p id="hexTekstKleurLog" class="hexLog"><%= blok.achtergrondColor%></p>
+              <% } else { %>
+                <p id="hexAchtergrondKleurLog" class="hexLog">#ffffff</p>
+              <%}%>
+            </div>
+
+            <div class="imageFile box" id = "afbeeldingVeld">
+              <span class="err" id="errAfbeelding"></span>
+              <input style="display: none;" class="textfield" type="text" name="afbeelding1" id = "afbeelding1" value="<% if(blok !== 'undefined'){ %><%= blok.backgroundImage%><% }else{ %><% } %>">
+              <div style="width: 100%; margin-bottom: 30px;">
+                <img style="width: 30%;" id="afbeelding1IMG" src="<% if (blok !== 'undefined'){%> <%= '../images/' + blok.backgroundImage %><%}else {}%>">
+              </div>
+              <a style="" onclick="getAfbeelding(this.id)" id="afbeelding1" class="openImages">Afbeeldingen</a>  
+            </div>
+         </div>  
+
+
+        <input type="text" name="blokType" value="tekst" style="display: none">
+        <input type="text" name="type" value="<%= tweedeTest%>" style="display: none">
+        <input type="text" name="huidigeNaam" id="huidigeNaam" value="<%= blok.name%>" style="display: none">
+        <input type="text" name="ID" value="<% if(blok !== 'undefined'){ %><%= blok.id%><% }else{ %><% } %>" style="display: none">
+        <button type="submit" class="btn">Opslaan</button>        
+      </form>                   
+    </div>
+    <%}%>
+
+    <% if (test === "contact"){%>
+    <h2>Nieuwe blok: <%= test%></h2>
+    <div class="nieuwType1">
+      <form name="contactForm" class="formulier contactFormulier" action="/makeContact" method="POST" onsubmit="return validateContact()">
+        <div class="box name">
+          <div style="overflow: hidden; margin-bottom: 10px;">
+            <label>Naam blok</label>
+            <input class="textfield" type="text" name="naam" value="<% if(blok !== 'undefined'){ %><%= blok.name%><% }else{ %><% } %>" id="name">
+          </div>
+          <span class="err" id="errNaam"></span>
+        </div>
+
+        <div class="box title">
+          <label>Titel</label>
+          <div style="overflow: hidden;">
+            <input style="float: left; margin-right: 20px;" id ="titel" class="textfield" type="text" name="titel" value="<% if(blok !== 'undefined'){ %><%= blok.titel%><% }else{ %><% } %>">
+            <input name="test" type='text' class="titelKleur"/>
+            <input style="display: none;" class="textfield" type="text" name="titelcolor" value="<% if(blok !== 'undefined'){ %><%= blok.titelColor%><% }else{ %>#323232<% } %>" id="hexTitelKleur">
+            <% if(blok !== 'undefined'){ %>
+            <p id="hexTitelKleurLog" class="hexLog"><%= blok.titelColor%></p>
+            <% } else { %>
+            <p id="hexTitelKleurLog" class="hexLog">#323232</p>
+            <%}%>
+          </div>
+          <span style="display: block; width: 100%;" class="err" id="errTitel"></span>
+        </div>
+
+        <div class="box contactGegevens">
+          <h3>Contact gegevens</h3>
+          <label>Gsm nummer</label>
+          <span class="err" id="errGsm"></span>
+          <input class="textfield" type="text" name="gsmNr" value="<% if(blok !== 'undefined'){ %><%= blok.gsmNr%><% }else{ %><% } %>">
+          <br>
+          <label>Telefoon nummer</label>
+          <input class="textfield" type="text" name="telNr" value="<% if(blok !== 'undefined'){ %><%= blok.telNr%><% }else{ %><% } %>">
+          <br>
+          <label>Adres</label> 
+          <span class="err" id="errAdres"></span>
+          <input class="textfield" type="text" name="adres" value="<% if(blok !== 'undefined'){ %><%= blok.adres%><% }else{ %><% } %>">
+          <br>
+          <label>Email adres</label> 
+          <span class="err" id="errEmailAdres"></span>
+          <input class="textfield" type="text" name="emailAdres" value="<% if(blok !== 'undefined'){ %><%= blok.emailAdres%><% }else{ %><% } %>">
+        </div>
+
+        <div class="box layout">
+          <h3>Lay-out</h3>
+          
+            <div style="overflow: hidden;">
+              <label style="float: left">Achtergrond</label>
+              <label style="float: right; margin-right: 100px;" class="checkbox">
+              <input name = "checkbox" type="checkbox" id="checkbox" />Afbeelding
+              </label>
+            </div>
+            <div style="display: block;" class="kleur" id="kleur">
+              <input name="test" type='text' class="achtergrondKleur"/>
+              <input style="display: none;" class="textfield" type="text" name="backgroundcolor" value="<% if(blok !== 'undefined'){ %><%= blok.backgroundColor%><% }else{ %>#ffffff<% } %>" id="hexAchtergrondKleur">
+              <% if(blok !== 'undefined'){ %>
+                <p id="hexAchtergrondKleurLog" class="hexLog"><%= blok.backgroundColor%></p>
+              <% } else { %>
+                <p id="hexAchtergrondKleurLog" class="hexLog">#ffffff</p>
+              <%}%>
+            </div>
+
+            <div class="imageFile box" id = "afbeeldingVeld">
+              <span class="err" id="errAfbeelding"></span>
+              <input style="display: none;" class="textfield" type="text" name="afbeelding1" id = "afbeelding1" value="<% if(blok !== 'undefined'){ %><%= blok.backgroundImage%><% }else{ %><% } %>">
+              <div style="width: 100%; margin-bottom: 30px;">
+                <img style="width: 30%;" id="afbeelding1IMG" src="<% if (blok !== 'undefined'){%> <%= '../images/' + blok.backgroundImage %><%}else {}%>">
+                
+              </div>
+              <a style="" onclick="getAfbeelding(this.id)" id="afbeelding1" class="openImages">Afbeeldingen</a>  
+            </div>
+            
+            <div class="box">
+              <br>
+              <h4>Contactgegevens</h4>
+              <br>
+              <label>Tekstkleur</label>
+              <input name="test" type='text' class="tekstKleur"/>
+              <input style="display: none;" class="textfield" type="text" name="tekstcolor" value="<% if(blok !== 'undefined'){ %><%= blok.tekstColor%><% }else{ %>#ffffff<% } %>" id="hexTekstKleur">
+              <% if(blok !== 'undefined'){ %>
+                <p id="hexTekstKleurLog" class="hexLog"><%= blok.tekstColor%></p>
+              <% } else { %>
+                <p id="hexTekstKleurLog" class="hexLog">#ffffff</p>
+              <%}%>
+              <br>
+              <label>Achtergrondkleur</label>
+              <input name="test" type='text' class="contactGegKleur"/>
+              <input style="display: none;" class="textfield" type="text" name="contactgegevensColor" value="<% if(blok !== 'undefined'){ %><%= blok.kleurContactgegevens%><% }else{ %>#323232<% } %>" id="hexContactGegKleur">
+              <% if(blok !== 'undefined'){ %>
+                <p id="hexcontactGegKleurLog" class="hexLog"><%= blok.kleurContactgegevens%></p>
+              <% } else { %>
+                <p id="hexcontactGegKleurLog" class="hexLog">#323232</p>
+              <%}%>
+
+              <label>Icon achtergrondkleur</label>
+              <input name="test" type='text' class="iconAchterKleur"/>
+              <input style="display: none;" class="textfield" type="text" name="iconAchterColor" value="<% if(blok !== 'undefined'){ %><%= blok.iconAchterColor%><% }else{ %>#ffffff<% } %>" id="hexiconAchterKleur">
+              <% if(blok !== 'undefined'){ %>
+                <p id="hexiconAchterKleurLog" class="hexLog"><%= blok.iconAchterColor%></p>
+              <% } else { %>
+                <p id="hexiconAchterLog" class="hexLog">#ffffff</p>
+              <%}%>
+
+              <label>Iconkleur</label>
+              <input name="test" type='text' class="iconKleur"/>
+              <input style="display: none;" class="textfield" type="text" name="iconKleur" value="<% if(blok !== 'undefined'){ %><%= blok.iconColor%><% }else{ %>#323232<% } %>" id="hexiconKleur">
+              <% if(blok !== 'undefined'){ %>
+                <p id="hexiconKleurLog" class="hexLog"><%= blok.iconColor%></p>
+              <% } else { %>
+                <p id="hexiconKleurLog" class="hexLog">#323232</p>
+              <%}%>
+              
+            </div>  
+            
+         </div>  
+ 
+       
+
+      
+        <button type="submit" class="btn">Opslaan</button>
+        <input type="text" name="type" value="<%= tweedeTest%>" style="display: none">
+        <input type="text" name="huidigeNaam" id="huidigeNaam" value="<%= blok.name%>" style="display: none">
+        <input type="text" name="ID" value="<% if(blok !== 'undefined'){ %><%= blok.id%><% }else{ %><% } %>" style="display: none">    
+      </form>                   
+    </div>
+    <%}%>
+
+    <% if (test === "kolom"){%>
+    <h2 class="col-12">Nieuwe blok: <%= test%></h2>
+    <div class="nieuwType1 kolomBlok">
+      <form name="tekstForm" class="formulier kolomFormulier" action="/makeKolom" method="POST" onsubmit="return validateTekst()">
+        <div class="box name">
+          <div style="overflow: hidden; margin-bottom: 10px;">
+            <label>Naam blok</label>
+            <input class="textfield" type="text" name="naam" value="<% if(blok !== 'undefined'){ %><%= blok.name%><% }else{ %><% } %>" id="name">
+          </div>
+          <span class="err" id="errNaam"></span>
+        </div>
+
+        <div class="box title">
+          <label>Titel</label>
+          <div style="overflow: hidden;">
+            <input style="float: left; margin-right: 20px;" id ="kak" class="textfield" type="text" name="blokTitel" value="<% if(blok !== 'undefined'){ %><%= blok.titel%><% }else{ %><% } %>">
+            <input name="test" type='text' class="titelKleur"/>
+            <input style="display: none;" class="textfield" type="text" name="titelcolor" value="<% if(blok !== 'undefined'){ %><%= blok.titelColor%><% }else{ %>#323232<% } %>" id="hexTitelKleur">
+            <% if(blok !== 'undefined'){ %>
+            <p id="hexTitelKleurLog" class="hexLog"><%= blok.titelColor%></p>
+            <% } else { %>
+            <p id="hexTitelKleurLog" class="hexLog">#323232</p>
+            <%}%>
+          </div>
+          <span style="display: block; width: 100%;" class="err" id="errTitel"></span>
+        </div>
+        <div id="kolommen">
+          
+        
+          <% if(blok !== "undefined"){%>
+          <% for(i=0; i < blok.kolomen.length; i++){%>
+          <%var id = i + 1;
+          var ID = "kolom" + id;%>
+          <div class="kolom col-4  eerste">
+            <div>
+              <label>Titel</label>
+              <input class="textfield" type="text" name="titel" value="<%= blok.kolomen[i].titel%>">
+              <label>Beschrijving</label>
+              <textarea w3-include-html="../../data/blokken/HTML/<%=blok.name%>/<%=blok.kolomen[i].beschrijving%>.html" style="width: 100%; min-height: 100px;"  name="beschrijving" id = "beschrijving<%= i + 1%>"></textarea>
+              
+              <label>Afbeelding</label>
+              <img id ="<%= ID%>IMG" style="width: 50%;">
+              <input type="text" name="afbeelding" id="<%= ID%>" value="<%= blok.kolomen[i].afbeelding%>">
+              <a onclick="getAfbeelding(this.id)" id="<%= ID%>" class="<%= id%>" style="padding: 10px 20px; background-color: black; color: white; margin-top: 20px; display: inline-block;">Afbeelding</a>
+            </div>
+          </div> 
+          <%}%>
+         
+          <%} else {%>
+          <div class="kolom col-4  eerste">
+            <div>
+              <label>Titel</label>
+              <input class="textfield" type="text" name="titel">
+              <label>Beschrijving</label>
+              <textarea style="width: 100%; min-height: 100px;" name="beschrijving"></textarea>
+              <label>Afbeelding</label>
+              <img id ="kolom1IMG" style="width: 50%;">
+              <input type="text" name="afbeelding" id="kolom1">
+              <a onclick="getAfbeelding(this.id)" id="kolom1" class="1" style="padding: 10px 20px; background-color: black; color: white; margin-top: 20px; display: inline-block;">Afbeelding</a>
+            </div>
+          </div>  
+          <div class="kolom col-4  eerste">
+            <div>
+              <label>Titel</label>
+              <input class="textfield" type="text" name="titel">
+              <label>Beschrijving</label>
+              <textarea style="width: 100%; min-height: 100px;" name="beschrijving"></textarea>
+              <label>Afbeelding</label>
+              <img id ="kolom2IMG" style="width: 50%;">
+              <input type="text" name="afbeelding" id="kolom2">
+              <a onclick="getAfbeelding(this.id)" id="kolom2" class="2" style="padding: 10px 20px; background-color: black; color: white; margin-top: 20px; display: inline-block;">Afbeelding</a>
+            </div>
+          </div>  
+          <%}%>
+        </div>
+        <div class="box">
+              <a  style = "display: inline-block; background-color: black; color: white; padding: 10px 20px; cursor: pointer; margin-bottom: 10px;" id="btnAddtoList">Extra kolom</a>
+          
+            </div>
+        <div class="box layout">
+          <h3>Lay-out</h3>
+          
+            <div style="overflow: hidden;">
+              <label style="float: left">Achtergrond</label>
+              <label style="float: right; margin-right: 100px;" class="checkbox">
+                <input name = "checkbox" type="checkbox" id="checkbox" />Afbeelding
+              </label>
+            </div>
+           <div style="display: block;" class="kleur" id="kleur">
+              <input name="test" type='text' class="achtergrondKleur"/>
+              <input style="display: none;" class="textfield" type="text" name="backgroundcolor" value="<% if(blok !== 'undefined'){ %><%= blok.backgroundColor%><% }else{ %>#ffffff<% } %>" id="hexAchtergrondKleur">
+              <% if(blok !== 'undefined'){ %>
+                <p id="hexAchtergrondKleurLog" class="hexLog"><%= blok.backgroundColor%></p>
+              <% } else { %>
+                <p id="hexAchtergrondKleurLog" class="hexLog">#ffffff</p>
+              <%}%>
+            </div>
+            <div class="imageFile box" id = "afbeeldingVeld">
+              <span class="err" id="errAfbeelding"></span>
+              <input style="display: none;" class="textfield" type="text" name="afbeelding1" id = "afbeelding1" value="<% if(blok !== 'undefined'){ %><%= blok.backgroundImage%><% }else{ %><% } %>">
+              <div style="width: 100%; margin-bottom: 30px;">
+                <img style="width: 30%;" id="afbeelding1IMG" src="<% if (blok !== 'undefined'){%> <%= '../images/' + blok.backgroundImage %><%}else {}%>">
+              </div>
+              <a style="" onclick="getAfbeelding(this.id)" id="afbeelding1" class="openImages">Afbeeldingen</a>  
+            </div>
+            
+          
+
+            <div class="box">
+              <h4>Kolom</h4>
+              <label>Achtergrondkleur</label>
+              <input name="test" type='text' class="achtergrondKleurKolom"/>
+              <input style="display: none;" class="textfield" type="text" name="backgroundcolorKolom" value="<% if(blok !== 'undefined'){ %><%= blok.backgroundColorKolom%><% }else{ %>#ffffff<% } %>" id="hexAchtergrondKleurKolom">
+              <% if(blok !== 'undefined'){ %>
+                <p id="hexAchtergrondKleurKolomLog" class="hexLog"><%= blok.backgroundColorKolom%></p>
+              <% } else { %>
+                <p id="hexAchtergrondKleurKolomLog" class="hexLog">#ffffff</p>
+              <%}%>
+
+              <label>Titelkleur</label>
+              <input name="test" type='text' class="titelKleurKolom"/>
+              <input style="display: none;" class="textfield" type="text" name="titelcolorkolom" value="<% if(blok !== 'undefined'){ %><%= blok.titelKleurKolom%><% }else{ %>#323232<% } %>" id="hexTitelKleurKolom">
+              <% if(blok !== 'undefined'){ %>
+                <p id="hexTitelKleurKolomLog" class="hexLog"><%= blok.titelKleurKolom%></p>
+              <% } else { %>
+                <p id="hexTitelKleurKolomLog" class="hexLog">#323232</p>
+              <%}%>
+
+              <label>Tekstkleur</label>
+              <input name="test" type='text' class="tekstKleurKolom"/>
+              <input style="display: none;" class="textfield" type="text" name="tekstcolorkolom" value="<% if(blok !== 'undefined'){ %><%= blok.tekstKleurKolom%><% }else{ %>#323232<% } %>" id="hexTekstKleurKolom">
+              <% if(blok !== 'undefined'){ %>
+                <p id="hexTekstKleurKolomLog" class="hexLog"><%= blok.tekstKleurKolom%></p>
+              <% } else { %>
+                <p id="hexTekstKleurKolomLog" class="hexLog">#323232</p>
+              <%}%>
+            </div>
+         </div> 
+
+        <div class="box">
+          <a  style = "display: inline-block; background-color: black; color: white; padding: 10px 20px; cursor: pointer; margin-bottom: 10px;" id="btnAddtoList">Extra kolom</a>
+          <input type="text" name="nieuw" value="<%= nieuw%>" style="display: none">
+          <input type="text" name="ID" value="<% if(blok !== 'undefined'){ %><%= blok.id%><% }else{ %><% } %>" style="display: none">
+          <input type="text" name="huidigeNaam" id="huidigeNaam" value="<%= blok.name%>" style="display: none"> 
+          <input type="text" name="type" value="<%= tweedeTest%>" style="display: none">
+          <button style="display: block;" class="btn">Opslaan</button>
+        </div>
+    </form> 
+    </div>     
+    <%}%>
+
+    <% if (test === "video"){%>
+    <h2>Nieuwe blok: <%= test%></h2>
+    <div class="nieuwType1">
+      <form name="tekstForm" class="formulier" action="/makeVideo" method="POST" onsubmit="return validateTekst()">
+        <div class="box name">
+          <div style="overflow: hidden; margin-bottom: 10px;">
+            <label>Naam blok</label>
+            <input class="textfield" type="text" name="naam" value="<% if(blok !== 'undefined'){ %><%= blok.name%><% }else{ %><% } %>" id="name">
+          </div>
+          <span class="err" id="errNaam"></span>
+        </div>
+
+        <div class="box title">
+          <label>Titel</label>
+          <div style="overflow: hidden;">
+            <input style="float: left; margin-right: 20px;" id ="titel" class="textfield" type="text" name="titel" value="<% if(blok !== 'undefined'){ %><%= blok.titel%><% }else{ %><% } %>">
+            <input name="test" type='text' class="titelKleur"/>
+            <input style="display: none;" class="textfield" type="text" name="titelcolor" value="<% if(blok !== 'undefined'){ %><%= blok.titelColor%><% }else{ %>#323232<% } %>" id="hexTitelKleur">
+            <% if(blok !== 'undefined'){ %>
+            <p id="hexTitelKleurLog" class="hexLog"><%= blok.titelColor%></p>
+            <% } else { %>
+            <p id="hexTitelKleurLog" class="hexLog">#323232</p>
+            <%}%>
+          </div>
+          <span style="display: block; width: 100%;" class="err" id="errTitel"></span>
+        </div>
+
+        <div class="box tekst">
+          <label>Tekst</label>
+          <textarea name="text" id="myTextarea" style="height: 250px; width: 99%;"></textarea><br>
+          <input name="test" type='text' class="tekstKleur"/>
+          <input style="display: none;" class="textfield" type="text" name="tekstcolor" value="<% if(blok !== 'undefined'){ %><%= blok.tekstColor%><% }else{ %>#323232<% } %>" id="hexTekstKleur">
+            <% if(blok !== 'undefined'){ %>
+            <p id="hexTekstKleurLog" class="hexLog"><%= blok.tekstColor%></p>
+            <% } else { %>
+            <p id="hexTekstKleurLog" class="hexLog">#323232</p>
+            <%}%>
+        </div>
+
+       <div class="box video">
+         <label>Video</label>
+         <% var videoLink = "https://www.youtube.com/watch?v=" + blok.videoID%>
+
+         <input onchange="video()" class="textfield" type="text" name="videoLink" value="<% if(blok !== 'undefined'){ %><%= videoLink%><% }else{ %><% } %>" id="video" >
+         <div class="youVideo">
+           
+         </div>
+       </div>
+
+       <div class="box layout">
+          <h3>Lay-out</h3>
+          
+            <div style="overflow: hidden;">
+              <label style="float: left">Achtergrond</label>
+              <label style="float: right; margin-right: 100px;" class="checkbox">
+                <input name = "checkbox" type="checkbox" id="checkbox" />Afbeelding
+              </label>
+            </div>
+            <div style="display: block;" class="kleur" id="kleur">
+              <input name="test" type='text' class="achtergrondKleur"/>
+              <input style="display: none;" class="textfield" type="text" name="backgroundcolor" value="<% if(blok !== 'undefined'){ %><%= blok.backgroundColor%><% }else{ %>#ffffff<% } %>" id="hexAchtergrondKleur">
+              <% if(blok !== 'undefined'){ %>
+                <p id="hexAchtergrondKleurLog" class="hexLog"><%= blok.backgroundColor%></p>
+              <% } else { %>
+                <p id="hexAchtergrondKleurLog" class="hexLog">#ffffff</p>
+              <%}%>
+            </div>
+
+            <div class="imageFile box" id = "afbeeldingVeld">
+              <span class="err" id="errAfbeelding"></span>
+              <input style="display: none;" class="textfield" type="text" name="afbeelding1" id = "afbeelding1" value="<% if(blok !== 'undefined'){ %><%= blok.backgroundImage%><% }else{ %><% } %>">
+              <div style="width: 100%; margin-bottom: 30px;">
+                <img style="width: 30%;" id="afbeelding1IMG" src="<% if (blok !== 'undefined'){%> <%= '../images/' + blok.backgroundImage %><%}else {}%>">
+              </div>
+              <a style="" onclick="getAfbeelding(this.id)" id="afbeelding1" class="openImages">Afbeeldingen</a>  
+            </div>
+         </div> 
+
+        <input type="text" name="blokType" value="video" style="display: none">
+        <input type="text" name="type" value="<%= tweedeTest%>" style="display: none">
+        <input type="text" name="huidigeNaam" value="<%= blok.name%>" style="display: none">
+        <input type="text" name="ID" value="<% if(blok !== 'undefined'){ %><%= blok.id%><% }else{ %><% } %>" style="display: none">
+        <button type="submit" class="btn">Opslaan</button>        
+      </form>                   
+    </div>
+    <%}%>
+
+    <% if (test === "artikel"){%>
+    <h2>Nieuwe blok: <%= test%></h2>
+    <div class="nieuwType1">
+      <form name="tekstForm" class="formulier" action="/makeArtikel" method="POST" onsubmit="return validateTekst()">
+        <div class="name">
+          <label>Naam blok:</label> 
+          <input class="textfield" type="text" name="naam" value="<% if(blok !== 'undefined'){ %><%= blok.name%><% }else{ %><% } %>" id="name">
+          <span class="err" id="errNaam"></span>
+        </div>
+
+        <div class="box title">
+          <label>Titel</label>
+          <div style="overflow: hidden;">
+            <input style="float: left; margin-right: 20px;" id ="titel" class="textfield" type="text" name="titel" value="<% if(blok !== 'undefined'){ %><%= blok.titel%><% }else{ %><% } %>">
+            <input name="test" type='text' class="titelKleur"/>
+            <input style="display: none;" class="textfield" type="text" name="titelcolor" value="<% if(blok !== 'undefined'){ %><%= blok.titelColor%><% }else{ %>#323232<% } %>" id="hexTitelKleur">
+            <% if(blok !== 'undefined'){ %>
+            <p id="hexTitelKleurLog" class="hexLog"><%= blok.titelColor%></p>
+            <% } else { %>
+            <p id="hexTitelKleurLog" class="hexLog">#323232</p>
+            <%}%>
+          </div>
+          <span style="display: block; width: 100%;" class="err" id="errTitel"></span>
+        </div>
+        <select id="selectNumber" name="categorie">
+          <% for (var i = 0; i < categoriën.categoriën.length; i ++) {%>
+          <option value="<%= categoriën.categoriën[i]%>"><%= categoriën.categoriën[i]%></option>
+          <%}%>
+        </select>
+        <div class="box layout">
+          <h3>Lay-out</h3>
+          <div style="display: block;" class="kleur" id="kleur">
+            <label>AchtergrondKleur</label>
+            <input name="test" type='text' class="achtergrondKleur"/>
+            <input style="display: none;" class="textfield" type="text" name="backgroundcolor" value="<% if(blok !== 'undefined'){ %><%= blok.backgroundColor%><% }else{ %>#ffffff<% } %>" id="hexAchtergrondKleur">
+            <% if(blok !== 'undefined'){ %>
+            <p id="hexAchtergrondKleurLog" class="hexLog"><%= blok.backgroundColor%></p>
+            <% } else { %>
+            <p id="hexAchtergrondKleurLog" class="hexLog">#ffffff</p>
+            <%}%>
+          </div>
+          <h4>Artikel</h4>
+          <label>Achtergrondkleur</label>
+          <input name="test" type='text' class="artikelAchtergrondKleur"/>
+          <input style="display: none;" class="textfield" type="text" name="artikelachtergrondcolor" value="<% if(blok !== 'undefined'){ %><%= blok.artikelAchtergrondkleur%><% }else{ %>#323232<% } %>" id="hexArtikelAchtergrondKleur">
+            <% if(blok !== 'undefined'){ %>
+            <p id="hexArtikelAchtergrondLog" class="hexLog"><%= blok.artikelAchtergrondkleur%></p>
+            <% } else { %>
+            <p id="hexArtikelAchtergrondLog" class="hexLog">#323232</p>
+            <%}%>
+
+          <label>Titelkleur</label>
+          <input name="test" type='text' class="artikelTitelKleur"/>
+          <input style="display: none;" class="textfield" type="text" name="artikeltitelcolor" value="<% if(blok !== 'undefined'){ %><%= blok.artikelTitelKleur%><% }else{ %>#ffffff<% } %>" id="hexArtikelTitelKleur">
+            <% if(blok !== 'undefined'){ %>
+            <p id="hexArtikelTitelKleurLog" class="hexLog"><%= blok.artikelTitelKleur%></p>
+            <% } else { %>
+            <p id="hexArtikelTitelKleurLog" class="hexLog">#ffffff</p>
+            <%}%>
+          <label>Tekstkleur</label>
+          <input name="test" type='text' class="tekstKleur"/>
+          <input style="display: none;" class="textfield" type="text" name="tekstcolor" value="<% if(blok !== 'undefined'){ %><%= blok.tekstColor%><% }else{ %>#ffffff<% } %>" id="hexTekstKleur">
+            <% if(blok !== 'undefined'){ %>
+            <p id="hexTekstKleurLog" class="hexLog"><%= blok.tekstColor%></p>
+            <% } else { %>
+            <p id="hexTekstKleurLog" class="hexLog">#ffffff</p>
+            <%}%>
+
+         </div> 
+
+        
+
+        <input type="text" name="blokType" value="tekst" style="display: none">
+        <input type="text" name="type" value="<%= tweedeTest%>" style="display: none">
+        <input type="text" name="huidigeNaam" value="<%= blok.name%>" style="display: none">
+        <input type="text" name="ID" value="<% if(blok !== 'undefined'){ %><%= blok.id%><% }else{ %><% } %>" style="display: none">
+        <button type="submit" class="btn">Opslaan</button>        
+      </form>                   
+    </div>
+    <%}%>
+    
+    <div id="myModal" class="modal">
+          <!-- Modal content -->
+          <div class="modal-content">
+              <a onclick="close()" class="close">&times;</a>
+              <% var id = 1%>
+              <% for (var i = 0; i < images.length; i ++) {%>
+              <div  class="imageBox" id = "imageBox">
+                <% if (nieuw === "true") {%>
+                <div onclick="setAfbeelding(this.id)" class="img" id = "<%= id%>"  style="background-image:url(images/<%= images[i]%>);" value="ok" >
+                  <%} else {%>
+                  <div onclick="setAfbeelding(this.id)" class="img" id = "<%= id%>"  style="background-image:url(../images/<%= images[i]%>);" value="ok" >
+                  <%}%>
+                </div>
+              </div>
+              <% id += 1 %>
+              <%}%>
+          </div>
+    </div>
+    
+  </div>
+
+<% if (tweedeTest === "nieuw"){%>
+<script type="text/javascript" src="javascripts/tinymce/tinymce.min.js"></script>
+<script src='javascripts/validateForm.js'></script>
+<script src='javascripts/validate.js'></script>
+<script src='javascripts/jquery.min.js'></script>
+<script src='javascripts/spectrum.js'></script>
+<script src='javascripts/modal.js'></script>
+
+<%} if (tweedeTest === "herwerk") {%>
+<script type="text/javascript" src="../javascripts/tinymce/tinymce.min.js"></script>
+<script src='../javascripts/validateForm.js'></script>
+<script src='../javascripts/validate.js'></script>
+<script src='../javascripts/jquery.min.js'></script>
+<script src='../javascripts/spectrum.js'></script>
+<script src='../javascripts/modal.js'></script>
+
+<%}%>
+</div>  
+
+<script type="text/javascript">
+  var blok = <%-JSON.stringify(blok)%>;
+  var titelKleur;
+  var tekstKleur;
+  var contactgegKleur;
+  var achtergrondKleur;
+  var achtergrondKleurKolom;
+  var titelKleurKolom;
+  var tekstKleurKolom;
+  var iconAchterKleur;
+  var iconKleur;
+  var artikelAchtergrondKleur;
+  var artikelTitelKleur;
+  var bloktype = "<%= test%>";
+  var ok =
+  console.log(ok);
+
+  if (bloktype === "artikel"){
+    $("#selectNumber").val("<%=blok.categorie%>").trigger("change");
+  }
+  if (blok !== "undefined"){
+    var hexTitel = "<%= blok.titelColor%>";
+    var hexTekst = "<%= blok.tekstColor%>";
+    var hexAchtergrond = "<%= blok.backgroundColor%>";
+    var hexAchtergrondKolom = "<%= blok.backgroundColorKolom%>";
+    var hexTitelKolom = "<%= blok.titelKleurKolom%>";
+    var hexTekstKolom = "<%= blok.tekstKleurKolom%>";
+    var hexcontactgegKleur = "<%= blok.kleurContactgegevens%>";
+    var hexiconAchterKleur = "<%= blok.iconAchterColor%>";
+    var hexiconKleur = "<%= blok.iconColor%>";
+    artikelAchtergrondKleur = "<%= blok.artikelAchtergrondkleur%>";
+    artikelTitelKleur = "<%= blok.artikelTitelKleur%>"
+    iconAchterKleur = hexiconAchterKleur;
+    achtergrondKleurKolom = hexAchtergrondKolom;
+    titelKleur = hexTitel;
+    tekstKleur = hexTekst;
+    titelKleurKolom = hexTitelKolom;
+    tekstKleurKolom = hexTekstKolom;
+    achtergrondKleur = hexAchtergrond;
+    achtergrondKolom = hexAchtergrondKolom;
+    contactgegKleur = hexcontactgegKleur;
+    iconKleur = hexiconKleur;
+  } else {
+    titelKleur = "#323232";
+    if (bloktype === "contact" || bloktype === "artikel") {
+      tekstKleur = "#ffffff";
+    } else {
+      tekstKleur = "#323232";
+    }
+    
+    achtergrondKleur = "#ffffff";
+    titelKleurKolom = "#323232";
+    tekstKleurKolom = "#323232";
+    achtergrondKleurKolom = "#ffffff";
+    contactgegKleur = "#323232;";
+    iconAchterKleur = "#ffffff";
+    iconKleur = "#323232";
+    artikelAchtergrondKleur = "#323232";
+    artikelTitelKleur = "#ffffff"
+  }
+
+  $(".titelKleur").spectrum({
+    color: titelKleur,
+    showInput: true,
+    change: function(color) {
+        $("#hexTitelKleur").val(color.toHexString());
+        $("#hexTitelKleurLog").text(color.toHexString());
+    }
+  });
+
+  $(".tekstKleur").spectrum({
+    color: tekstKleur,
+    showInput: true,
+    change: function(color) {
+        $("#hexTekstKleur").val(color.toHexString());
+        $("#hexTekstKleurLog").text(color.toHexString());
+    }
+  });
+  $(".achtergrondKleur").spectrum({
+    color: achtergrondKleur,
+    showInput: true,
+    change: function(color) {
+        $("#hexAchtergrondKleur").val(color.toHexString());
+        $("#hexAchtergrondKleurLog").text(color.toHexString());
+    }
+  });
+  $(".contactGegKleur").spectrum({
+    color: contactgegKleur,
+    showInput: true,
+    change: function(color) {
+        $("#hexContactGegKleur").val(color.toHexString());
+        $("#hexcontactGegKleurLog").text(color.toHexString());
+    }
+  });
+  if (bloktype === "kolom"){
+    $(".achtergrondKleurKolom").spectrum({
+      color: achtergrondKleurKolom,
+      showInput: true,
+      change: function(color) {
+        $("#hexAchtergrondKleurKolom").val(color.toHexString());
+        $("#hexAchtergrondKleurKolomLog").text(color.toHexString());
+      }
+    });
+
+    $(".titelKleurKolom").spectrum({
+      color: titelKleurKolom,
+      showInput: true,
+      change: function(color) {
+        $("#hexTitelKleurKolom").val(color.toHexString());
+        $("#hexTitelKleurKolomLog").text(color.toHexString());
+      }
+    });
+
+    $(".tekstKleurKolom").spectrum({
+      color: tekstKleurKolom,
+      showInput: true,
+      change: function(color) {
+        $("#hexTekstKleurKolom").val(color.toHexString());
+        $("#hexTekstKleurKolomLog").text(color.toHexString());
+      }
+    });
+  }
+
+  if (bloktype === "contact"){  
+    $(".iconAchterKleur").spectrum({
+      color: iconAchterKleur,
+      showInput: true,
+      change: function(color) {
+        $("#hexiconAchterKleur").val(color.toHexString());
+        $("#hexiconAchterKleurLog").text(color.toHexString());
+      }
+    });
+
+    $(".iconKleur").spectrum({
+      color: iconKleur,
+      showInput: true,
+      change: function(color) {
+        $("#hexiconKleur").val(color.toHexString());
+        $("#hexiconKleurLog").text(color.toHexString());
+      }
+    });
+    
+  }
+  if (bloktype === "artikel"){  
+    $(".artikelAchtergrondKleur").spectrum({
+      color: artikelAchtergrondKleur,
+      showInput: true,
+      change: function(color) {
+        $("#hexArtikelAchtergrondKleur").val(color.toHexString());
+        $("#hexArtikelAchtergrondLog").text(color.toHexString());
+      }
+    });
+
+    $(".artikelTitelKleur").spectrum({
+      color: artikelTitelKleur,
+      showInput: true,
+      change: function(color) {
+        $("#hexArtikelTitelKleur").val(color.toHexString());
+        $("#hexArtikelTitelKleurLog").text(color.toHexString());
+      }
+    });
+    
+  }
+  
+  
+      var nieuw = "<%= nieuw%>";
+
+      var blokkenArray = <%- JSON.stringify(blokkenArray) %>;
+      // Get the modal
+      var html = "<%= html %>";
+      var checked = "<%= blok.checked%>";
+
+      if (html !== "undefined") {
+        $('#myTextarea').html(html);
+      }
+      /*if (bloktype === "kolom") {
+        for(i = 0; i < blok.kolomen.length; i++){
+          var html = "beschrijving" + (i + 1);
+          
+          
+        }
+        
+      }*/
+
+      document.write(5 + 6);
+      function video(){
+        console.log("Hello world!");
+          var x = document.getElementById("video").value;
+          document.getElementById('youVideo').innerHTML = '<iframe width="560" height="315" src="//www.youtube.com/embed/'+ x +'" frameborder="0" allowfullscreen></iframe>';
+      }
+      tinymce.init({
+          selector: '#myTextarea',
+            
+
+        });
+     
+      
+      
+
+       $(document).ready(function(){
+        
+       $('#color').spectrum({
+         color: '#fff',
+         showAlpha: true,
+         showInput: true,
+        
+         move: function(color){
+            //$('#colorText').css('background-color',color.toRgbString());  
+           $('#colorText').val(color.toHexString());
+
+          }
+        
+          });
+
+       
+       $('#tekstColor').spectrum({
+         color: '#323232',
+         showAlpha: true,
+         showInput: true,
+        
+         move: function(color){
+            //$('#colorText').css('background-color',color.toRgbString());  
+           $('#tekstColorText').val(color.toHexString());
+
+          }
+        
+          });
+
+      });
+       $(function() {
+        
+        
+
+$('#btnAddtoList').click(function(){
+  var id = $('.kolom').length + 1;
+  var nieuweKlasse = "kolom" + id;
+  var imgklasse = nieuweKlasse + "IMG";
+  var newDiv = $('<div class="kolom col-4  eerste"><div><label>Titel</label><input class="textfield" type="text" name="titel"><label>Beschrijving</label><textarea style="width: 100%; min-height: 100px;" name="beschrijving"></textarea><label>Afbeelding</label><img id="' + imgklasse +  '" style="width: 50%;"><input type="text" name="afbeelding" id="' + nieuweKlasse + '"><a onclick="getAfbeelding(this.id)" id="' + nieuweKlasse +  '" class="1" style="padding: 10px 20px; background-color: black; color: white; margin-top: 20px; display: inline-block;">Afbeelding</a></div></div>');
+
+  //newDiv.style.background = "#000";
+  $('#kolommen').append(newDiv);
+});
+
+});
+      
+
+    </script>
+     <script>
+includeHTML();
+</script>
+    <% if (tweedeTest === "nieuw"){%>
+
+<script src='javascripts/checkbox.js'></script>
+<%} if (tweedeTest === "herwerk") {%>
+
+<script src='../javascripts/checkbox.js'></script>
+<%}%>
+  </body>
+  </html>
+
+

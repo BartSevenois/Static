@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Blokken</title>
+    <link rel='stylesheet' href='/stylesheets/<%= config.thema%>/css/style.css'>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
+    <script type="text/javascript" src="../javascripts/tinymce/tinymce.min.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Lato|Open+Sans|Roboto" rel="stylesheet">
+
+</head>
+<style>
+  
+</style>
+<body>
+<%- include('partials/backendNav') %>
+
+
+    <div class="containerBackEnd">
+      <div class="left col-2">
+          <%- include('partials/smartNav') %>
+      </div>
+      <div class="right col-10">
+        <h1 class="col-12">Categoriën</h1>
+        <form style="width: 100; margin-bottom: 20px; margin-top: 30px;" action="/nieuwCategorie" method="POST" class="col-12">
+          <label>Nieuwe categorie</label>
+          <input type="text" name="categorie"><br>
+          <button>Opslaan</button>
+        </form>
+
+        <div class="col-12">
+          <h3>Alle categoriën</h3>
+          <%for(i=0; i < categoriën.categoriën.length; i++){%>
+          <div class="categorie">
+            <p><%= categoriën.categoriën[i]%></p>
+            <a href="./deleteCategorie/<%= categoriën.categoriën[i]%>"><i class="fas fa-trash-alt"></i></a>
+          </div>
+          <%}%>
+        </div>
+        
+        
+      </div>
+    </div>
+    <script src='javascripts/jquery.min.js'></script>
+<script>
+
+
+
+
+</script>
+  </body>
+  </html>
+
+

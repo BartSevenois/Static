@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Blokken</title>
+    <link rel='stylesheet' href='/stylesheets/<%= config.thema%>/css/style.css'>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
+    <script type="text/javascript" src="../javascripts/tinymce/tinymce.min.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Lato|Open+Sans|Roboto" rel="stylesheet">
+
+</head>
+<style>
+    header{
+        background-image: url("/images/");
+    }
+</style>
+<script type="text/javascript">
+        tinymce.init({
+            selector: '#myTextarea'
+        });
+        function includeHTML() {
+  var z, i, elmnt, file, xhttp;
+  /*loop through a collection of all HTML elements:*/
+  z = document.getElementsByTagName("*");
+  for (i = 0; i < z.length; i++) {
+    elmnt = z[i];
+    /*search for elements with a certain atrribute:*/
+    file = elmnt.getAttribute("w3-include-html");
+    if (file) {
+      /*make an HTTP request using the attribute value as the file name:*/
+      xhttp = new XMLHttpRequest();
+      xhttp.onreadystatechange = function() {
+        if (this.readyState == 4) {
+          if (this.status == 200) {elmnt.innerHTML = this.responseText;}x
+          if (this.status == 404) {elmnt.innerHTML = "Page not found.";}
+          /*remove the attribute, and call this function once more:*/
+          elmnt.removeAttribute("w3-include-html");
+          includeHTML();
+        }
+      }      
+      xhttp.open("GET", file, true);
+      xhttp.send();
+      /*exit the function:*/
+      return;
+    }
+  }
+};
+</script>
+<body>
+<%- include('partials/backendNav') %>
+
+
+    <div class="containerBackEnd">
+      <div class="left col-2">
+          <%- include('partials/smartNav') %>
+      </div>
+      <div class="right col-10">
+        <h1 class="col-12" style="margin-bottom: 20px;">Mail van <%= mail.naamVerzender%></h1>
+        <br><br>
+        <div class="col-12">
+          <h3><b>Onderwerp: </b><%= mail.onderwerp%></h3>
+          <br>
+          <div w3-include-html="../../data/mail/HTML/<%= mail.naam%>.html"></div>
+          <a href="mailto:<%= mail.emailAdres%>?subject=Re: <%= mail.onderwerp%>" style="padding: 10px 20px; background-color: black; color: white; text-decoration: none; margin-top: 20px; display: inline-block;">Antwoord</a>
+        </div>
+
+        
+
+        
+      </div>
+    </div>
+    <script src='javascripts/jquery.min.js'></script>
+    <script src='javascripts/spectrum.js'></script>
+  <script>
+includeHTML();
+</script>
+  </body>
+  </html>

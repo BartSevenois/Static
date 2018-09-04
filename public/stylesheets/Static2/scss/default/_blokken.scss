@@ -1,0 +1,33 @@
+.blokken {
+  .blok {
+    border-bottom: 1px solid black;
+    margin: 0px 20px;
+    padding: 0px;
+    h4 {
+      float: left;
+      padding: 20px 0px;
+      width: 30%;
+
+    }
+    p {
+      float: left;
+      padding: 20px 0px;
+    }
+    .bloktype {
+      float: left;
+      width: 30%;
+      margin-right: 20%;
+    }
+    .id {
+      margin-right: 20px;
+    }
+    a {
+      float: right;
+      margin-right: 20px;
+      display: block;
+      padding: 20px 0px;
+      color: black;
+      text-decoration: none;  
+    }
+  }
+}

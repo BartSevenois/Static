@@ -1,0 +1,58 @@
+#wysiwyg {
+	position: relative;
+  text-align: center !important;
+  z-index: 0;
+  
+  width: auto;
+  background-color: #333333;
+  border-bottom-left-radius: 0px;
+  border-bottom-right-radius: 0px;	
+}
+
+#wysiwyg button {
+	font-size: 1.3vw;
+  width: 2.6vw;
+  height: 2.4vw;
+  background-color: #333333;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  transition: all .6s;
+  border-radius: 5px;
+  color: white;
+}
+
+#wysiwyg a {
+  font-size: 1.3vw;
+  display: inline-block;
+  width: 2.6vw;
+  height: 2.4vw;
+  background-color: #333333;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  transition: all .6s;
+  border-radius: 5px;
+  color: white;
+}
+
+#wysiwyg .button-group {
+  display: inline-block;
+  padding: 0.5vw;
+}
+
+#wysiwyg select#select {
+  background-color: light-gray;
+  height: 1.8vw;
+  border-radius: 0px;
+  -webkit-appearance: none;
+  width: 10%;
+  text-align: center;
+  border-color: red;
+}
+
+#richTextField {
+	padding-top: 30px;
+  padding-left: 20px;
+  padding-right: 20px;
+}

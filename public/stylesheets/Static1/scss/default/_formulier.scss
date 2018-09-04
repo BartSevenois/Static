@@ -1,0 +1,111 @@
+
+.containerBackEnd {
+  .formulier {
+    .box {
+      margin-bottom: 20px;
+      overflow: hidden;
+      width: 100%;
+      display: block;
+      label{
+        padding-bottom: 10px;
+        display: block;
+      }
+    }
+    h3{
+      margin-bottom: 20px;
+    }
+    .name {
+      label {
+        float: left;
+        padding: 10px 0px;
+        margin-right: 20px;
+      }  
+    }
+    .textfield{
+      padding: 10px;
+      font-size: 14px;
+      display: block;
+    }
+    .layout{
+      background-color: #ededed;
+      overflow: hidden;
+      padding: 30px;
+      h3 {
+        margin-bottom: 20px;
+      }
+      .checkbox{
+        margin-top: 10px;
+        input {margin-right: 10px; margin-top: -3px;}
+      }
+    }
+    .imageFile {
+      a {
+        float: left;
+      
+        background-color: black;
+        color: white;
+        padding: 10px;
+        cursor: pointer;
+      }
+      .textfield {
+        float: left;
+      }
+    }
+  
+    .hexLog{
+      color: #616161;
+      margin-top: 12px;
+      font-size: 12px;
+    }
+    /** Color Picker **/
+    .sp-replacer {
+      float: left;
+      margin-top: 5px;
+      margin-right: 10px;
+    }
+    .btn {
+      background-color: #E36161;
+      color: white;
+      border: none;
+      padding: 15px 30px;
+      font-size: 12px;
+      border-radius: 3px;
+      display: block;
+    }
+  }
+}
+.afbeeldingEnTekstFormulier{
+  
+}
+
+.tekstFormulier {
+  .title{
+    margin-top: 10px;
+  }
+}
+.contactFormulier {
+  .title{
+    margin-top: 10px;
+  }
+  .contactGegevens{
+    margin-bottom: 40px !important;
+  }
+}
+
+.kolomFormulier {
+  .title{
+    margin-top: 10px;
+  }
+  .kolom {  
+    margin-bottom: 30px;
+    div {
+      border: 2px solid black;
+      padding: 20px;
+      margin: 10px 10px 10px 0px;
+    }
+  }
+  .kolom.eerste {
+    margin-left: -10px;
+  }
+  
+}

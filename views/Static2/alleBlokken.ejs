@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>New blok</title>
+    <link rel='stylesheet' href='/stylesheets/<%= config.thema%>/css/style.css'>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
+    <script type="text/javascript" src="javascripts/tinymce/tinymce.min.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Lato|Open+Sans|Roboto" rel="stylesheet">
+    <script type="text/javascript">
+        tinymce.init({
+            selector: '#myTextarea'
+        });
+    </script>
+</head>
+<style>
+    header{
+        background-image: url("/images/");
+    }
+
+</style>
+<body>
+<%- include('partials/backendNav') %>
+
+
+    <div class="containerBackEnd">
+      <div class="left col-2">
+          <%- include('partials/smartNav') %>
+      </div>
+      <div class="right col-10 alleBlokken">
+        <h1 class="col-12">Kies een bloktype</h1>
+        <div class="col-3 blok">
+          <a href="/new?type=afbeeldingEnTekst">
+          <img src="images/blok1.jpg">
+          <h4>Afbeeling en tekst</h4>
+          </a>
+        </div>
+        <div class="col-3 blok">
+          <a href="/new?type=tekst&fout=start">
+          <img src="images/blok1.jpg">
+          <h4>Tekst</h4>
+          </a>
+        </div>
+        <div class="col-3 blok">
+          <a href="/new?type=contact">
+          <img src="images/blok1.jpg">
+          <h4>Contact</h4>
+          </a>
+        </div>
+        <div class="col-3 blok">
+          <a href="/new?type=kolom">
+          <img src="images/blok1.jpg">
+          <h4>Kolom</h4>
+          </a>
+        </div>
+        <div class="col-3 blok">
+          <a href="/new?type=video">
+          <img src="images/blok1.jpg">
+          <h4>Video</h4>
+          </a>
+        </div>
+        <div class="col-3 blok">
+          <a href="/new?type=artikel">
+          <img src="images/blok1.jpg">
+          <h4>Artikel</h4>
+          </a>
+        </div>
+        
+        
+      </div>
+    </div>
+  </body>
+  </html>
+
+

@@ -1,0 +1,45 @@
+<style type="text/css">
+    .blok.<%= blok.html%> {
+        background-color: <%= blok.backgroundColor%>
+    }
+    .blok.<%= blok.html%> h1 {
+        color: <%= blok.titelColor%>
+    }
+    .blok.<%= blok.html%> .tekst {
+        color: <%= blok.tekstColor%>
+    }
+    <%if (blok.checked == false){%>
+    .<%= html%>{
+      background-color: <%= blok.backgroundColor%>;
+    }
+  <%} else if(blok.checked == true){%>
+    .<%= html%>{
+      background-image: url('images/<%= blok.backgroundImage%>');
+      background-repeat: no-repeat;
+      background-attachment: scroll;
+      background-position: center; 
+      background-size: cover; 
+    }
+    .overlay.<%= html%> {
+      background: rgba(0,0,0,0.6); 
+      overflow: hidden; 
+      height: 100%; 
+      z-index: 2; 
+    }
+    
+  <%}%>
+</style>
+<div class="blok <%= %> videoBlok <%= blok.html%>">
+  <div class = "overlay <%= html%>">
+   	<div class="centerBlok" >
+    	<h1 class="col-12"><%= blok.titel%></h1>
+    	<div class="tekst">
+    		<div w3-include-html="../../data/blokken/HTML/<%= blok.html%>.html"></div>
+    	</div>
+    	<div class="video" style="text-align: center;">
+    		<iframe width="80%" height="515" style="margin: auto;" src="//www.youtube.com/embed/<%= blok.videoID%>" frameborder="0" allowfullscreen></iframe>
+    	</div>
+    	
+	</div>
+</div>
+</div>

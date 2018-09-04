@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Blokken</title>
+    <link rel='stylesheet' href='/stylesheets/<%= config.thema%>/css/style.css'>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css?family=Lato|Open+Sans|Roboto" rel="stylesheet">
+    <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
+  
+    <script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
+    <script type="text/javascript" src="../javascripts/tinymce/tinymce.min.js"></script>
+    <script type="text/javascript">
+        tinymce.init({
+            selector: '#myTextarea'
+        });
+    </script>
+</head>
+<style>
+    header{
+        background-image: url("/images/");
+    }
+
+</style>
+<body>
+<%- include('partials/backendNav') %>
+
+
+    <div class="containerBackEnd">
+      <div class="left col-2">
+          <%- include('partials/smartNav') %>
+      </div>
+      <div class="right col-10">
+        <h1>Nieuw artikel</h1>
+        <form style="float: left;" name="nieuwArtikel" class="formulier nieuwArtikel" action="/nieuwArtikel" method="POST" onsubmit="return validateAfbeeldingEnTekst()">
+          <div class="name box">
+            <label>Artikelnaam</label>
+            <input type="text" class="textfield" name="artikelNaam" value="<% if(artikel !== 'undefined'){ %><%= artikel.naam%><% }else{ %><% } %>">
+          </div>
+          <div class="title box">
+            <label>Titel</label>
+            <input class="textfield" type="text" name="titel" value="<% if(artikel !== 'undefined'){ %><%= artikel.titel%><% }else{ %><% } %>">
+          </div>
+          <div class="box tekst">
+            <label>Tekst</label>
+            <textarea name="text" id="myTextarea"></textarea>
+          </div>
+          <div class="imageFile box">
+            <span style="display: block; margin-bottom: 10px">Afbeelding</span>
+            <span>File</span>
+            <span class="err" id="errAfbeelding"></span>
+            <input type="text" name="afbeelding1" id = "afbeelding1" value="<% if(artikel !== 'undefined'){ %><%= artikel.afbeelding%><% }else{ %><% } %>">
+            <img id="afbeelding1IMG" style="width: 30%;" src="">
+            <a onclick="getAfbeelding(this.id)" id="afbeelding1" class="openImages">Afbeeldingen</a>
+            <img id="myImg" src="">      
+          </div>
+          <select id="selectCategorie" name="categorie">
+            <% for (var i = 0; i < categoriën.categoriën.length; i ++) {%>
+              <option><%= categoriën.categoriën[i]%></option>
+            <%}%>
+          </select>
+          <% if(artikel !== 'undefined'){ %>
+          <input style="display: none;" type="text" name="type" value="herwerk">
+          <% }else{ %>
+          <input style="display: none;" type="text" name="type" value="nieuw">
+          <% } %>
+          <input style="display: none;" type="text" name="huidigeNaam" value="<%= artikel.naam%>">
+          
+          <button type="button">Pizza</button><br>
+          <button>Opslaan</button>
+        </form>
+        <div id="myModal" class="modal">
+          <!-- Modal content -->
+          <div class="modal-content">
+              <a onclick="close()" class="close">&times;</a>
+              <% var id = 1%>
+              <% for (var i = 0; i < images.length; i ++) {%>
+              <div  class="imageBox" id = "imageBox">
+                <% if (nieuw === "true") {%>
+                <div onclick="setAfbeelding(this.id)" class="img" id = "<%= id%>"  style="background-image:url(images/<%= images[i]%>);" value="ok" >
+                  <%} else {%>
+                  <div onclick="setAfbeelding(this.id)" class="img" id = "<%= id%>"  style="background-image:url(../images/<%= images[i]%>);" value="ok" >
+                  <%}%>
+                </div>
+              </div>
+              <% id += 1 %>
+              <%}%>
+          </div>
+    </div>
+  </div>
+    </div>
+
+    <script src='../javascripts/jquery.min.js'></script>
+    <script src='../javascripts/modal.js'></script>
+    <script type="text/javascript">
+
+      
+      var html = "<%= html %>";
+      var artikel = "<%= artikel.categorie %>";
+      if(artikel !== "undefined"){
+        $("#selectCategorie").val("<%= artikel.categorie%>").trigger("change");
+      } else {
+        $("#selectCategorie").val("Geen").trigger("change");
+      }
+      if (html !== "undefined") {
+        $('#myTextarea').html(html);
+      }
+    </script>
+  </body>
+  </html>

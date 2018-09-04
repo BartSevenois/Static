@@ -1,0 +1,47 @@
+<!-- Type 1 -->
+<style type="text/css">
+  .<%=html%> h1 {
+    color: <%= blok.titelColor%>;
+  }
+  .<%=html%>.blok  {
+    background-color: <%= blok.backgroundColor%>;
+  }
+  .<%=html%> .artikel  {
+    background-color: <%= blok.artikelAchtergrondkleur%> !important;
+  }
+
+  .<%=html%> .artikel h2  {
+    color: <%= blok.artikelTitelKleur%> !important;
+  }
+  .<%=html%> .artikel .artikelTekst  {
+    color: <%= blok.tekstColor%> !important;
+  }
+</style>
+
+<div class="blok <%= html%> artikelBlok">
+  <div class = "overlay">
+    <div class="centerBlok" >
+      <h1 class="col-12"></h1>
+      <div class="centreren">
+        <h1><%=blok.titel%></h1>
+        <div >
+          <% for (i=0; i < artikels.length; i++){%>
+          <%if(artikels[i].categorie === blok.categorie){%>
+          <div class="artikel" style="">
+            
+            <img style="" src="/images/<%= artikels[i].afbeelding%>">
+            <h2 style="margin-bottom: 20px; float: left; margin-top: -5px;"><%=artikels[i].titel%></h2>
+            <div class="artikelTekst" style="" w3-include-html="../../data/artikels/HTML/<%= artikels[i].html%>.html"></div>
+          </div>
+          
+          <%}%>
+      
+          <%}%>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+

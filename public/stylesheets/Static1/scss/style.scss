@@ -1,0 +1,160 @@
+@import "default/variables.scss";
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Open Sans', sans-serif;
+}
+
+/** Navigatie **/
+@import "default/nav.scss";
+
+.container {
+  width: 100%;
+  overflow: hidden;
+  
+}
+
+/***** Blokken *****/
+@import "default/blok.scss";
+
+@import "default/mails.scss";
+/** Container **/
+
+
+.container {
+  padding-top: 106px;
+}
+
+
+
+/** Einde blok **/
+.content {
+  z-index: -1;
+}
+
+
+@import "default/documentation.scss";
+@import "default/newpost.scss";
+@import "default/wysiwyg.scss";
+@import "default/grid.scss";
+
+
+
+
+
+
+#myImg {
+  width: 20%;
+  display: block;
+}
+.image {
+  overflow: auto;
+  float: left;
+  cursor: pointer;
+}   
+.imageBox{
+
+  float: left;
+  overflow: auto;
+  background-color: #393232;
+  margin-right: 10px;
+  text-align: center;
+  padding-bottom: 8px;
+  padding-top: 3px;
+  padding-left: 3px;
+  padding-right: 3px;
+  margin-bottom: 10px;
+  .trash {
+    text-align: center;
+    color: white;
+    height: 15px;
+    display: block;
+  }
+  .img {
+    cursor: pointer;
+    position: relative;
+    width:  110px;
+    height: 110px;
+    background-position: 50% 50%;
+    background-repeat: no-repeat;
+    background-size: cover;
+    margin-bottom: 10px;
+    background-color: white;
+
+  }
+}
+    
+
+
+#afbeeldingVeld {
+    display: none;
+}
+#myImgAchtergrondAfbeelding {
+  width: 20%;
+}
+
+
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    padding-top: 100px; /* Location of the box */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+    overflow: hidden;
+}
+
+/* Modal Content */
+.modal-content {
+    background-color: #fefefe;
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+    overflow: hidden;
+}
+
+/* The Close Button */
+.close {
+    color: #aaaaaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+
+/** Footer **/
+
+
+footer {
+  background-color: #393232;
+
+  color: white;
+  p {
+    text-align: center;
+    padding: 25px 0;
+
+  }
+}
+@import "default/header.scss";
+@import "default/containerBackend.scss";
+@import "default/formulier.scss";
+@import "default/mail.scss";
+@import "default/blokken.scss";
+@import "default/alleBlokken.scss";

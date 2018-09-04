@@ -1,0 +1,42 @@
+.newPost {
+  background-color: $gray;
+  padding: 50px;
+  h1 {
+    margin-bottom: 40px;
+  }
+  p {
+    color: red;
+    margin-top: 10px;
+  }
+  .block {
+    display: block;
+  }
+  .textarea {
+    width: 100%;
+    padding: 10px;
+    max-width: 100%;
+    min-height: 200px;
+    border: none;
+  }
+  .inputfield {
+    padding: 10px;
+    border: none;
+    width: 33%;
+    display: block;
+  }
+  label {
+    margin: 40px 0px 15px 2px;
+    display: block;
+    font-size: 16px;
+    &:nth-child(1) {
+      margin-top: 0px;
+    }
+  }
+  .buttonPost {
+    margin-top: 50px;
+    background-color: black;
+    color: white;
+    padding: 10px 20px 15px 20px;
+    border: none;
+  }
+}

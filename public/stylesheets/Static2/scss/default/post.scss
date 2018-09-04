@@ -1,0 +1,37 @@
+.post {
+  background-color: $gray;
+  padding: 30px;
+  overflow: hidden;
+  margin-bottom: 30px;
+  -webkit-box-shadow: 0 3px 5px rgba(57, 63, 72, 0.3);
+  -moz-box-shadow: 0 3px 5px rgba(57, 63, 72, 0.3);
+  box-shadow: 0 3px 5px rgba(57, 63, 72, 0.3);
+  div {
+    float: left;
+    width: 70%;
+    padding-right: 30px;
+    h2 {
+      margin-bottom: 20px;
+    }
+  }
+  p:nth-child(2) {
+    margin-bottom: 20px;
+  }
+  .auteurDate {
+    margin-bottom: 40px;
+  }
+  .body {
+    margin-bottom: 20px;
+  }
+  div a {
+    text-decoration: none;
+    color: white;
+    background-color: black;
+    padding: 10px 20px;
+    margin-top: 30px;
+  }
+  img {
+    width: 30%;
+    float: right;
+  }
+}

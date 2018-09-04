@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title></title>
+    <link rel='stylesheet' href='/stylesheets/<%= config.thema%>/css/style.css'>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css?family=Lato|Open+Sans|Roboto" rel="stylesheet">
+    <script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
+  </head>
+  <style>
+    .header{
+        background-image: url("/images/<%= config.headerImage%>");
+    }
+  </style>
+  <script>
+    function includeHTML() {
+      var z, i, elmnt, file, xhttp;
+      /*loop through a collection of all HTML elements:*/
+      z = document.getElementsByTagName("*");
+      for (i = 0; i < z.length; i++) {
+        elmnt = z[i];
+        /*search for elements with a certain atrribute:*/
+        file = elmnt.getAttribute("w3-include-html");
+        if (file) {
+          /*make an HTTP request using the attribute value as the file name:*/
+          xhttp = new XMLHttpRequest();
+          xhttp.onreadystatechange = function() {
+            if (this.readyState == 4) {
+              if (this.status == 200) {elmnt.innerHTML = this.responseText;}
+              if (this.status == 404) {elmnt.innerHTML = "Page not found.";}
+              /*remove the attribute, and call this function once more:*/
+              elmnt.removeAttribute("w3-include-html");
+              includeHTML();
+            }
+          }      
+          xhttp.open("GET", file, true);
+          xhttp.send();
+          /*exit the function:*/
+          return;
+        }
+      }
+  };
+</script>
+  <body> 
+    <%- include('partials/usernav') %>
+    <%- include('partials/nav') %>
+    
+    <div class="container">
+      <header class="header">
+        <h2><%= config.slogan%></h2>
+      </header>
+      <div class="content">
+        <% for (var i = 0; i < bloks.length; i ++) {%>
+
+          <%if (bloks[i].bloktype === "afbeelingEnTekst") {%>
+            <%- include('blok1',{title: bloks[i].titel, afbeelding: bloks[i].afbeelding, html: bloks[i].name.replace(/\s/g,''), 
+            backgroundColor: bloks[i].backgroundColor, tekstColor: bloks[i].tekstColor, titelColor: bloks[i].titelColor, name: bloks[i].name, checked: bloks[i].checked, achtergrondafbeelding: bloks[i].achtergrondafbeelding})%>
+          <%}%>
+          <%if (bloks[i].bloktype === "tekst") {%>
+
+            <%- include('partials/tekst',{title: bloks[i].titel, html: bloks[i].name.replace(/\s/g,''), backgroundColor: bloks[i].backgroundColor, tekstColor: bloks[i].tekstColor, titelColor: bloks[i].titelColor, name: bloks[i].name.replace(/\s/g,''), checked: bloks[i].checked, achtergrondafbeelding: bloks[i].backgroundImage})%>
+
+          <%}%>
+          <%if (bloks[i].bloktype === "contact") {%>
+              <%- include('partials/contact',{blok: bloks[i], html: bloks[i].name.replace(/\s/g,'')})%>
+          <%}%>
+          <%if (bloks[i].bloktype === "kolom") {%>
+             <%- include('kolom',{blok: bloks[i], html: bloks[i].name.replace(/\s/g,'')})%>
+          <%}%>
+          <%if (bloks[i].bloktype === "video") {%>
+             <%- include('video',{blok: bloks[i], html: bloks[i].name.replace(/\s/g,'')})%>
+          <%}%>
+          <%if (bloks[i].bloktype === "artikel") {%>
+             <%- include('artikel',{blok: bloks[i], artikels: artikels, html: bloks[i].name.replace(/\s/g,'')})%>
+          <%}%>
+      <%}%>
+      </div>
+      
+      
+    </div>
+
+
+   
+    <%- include('partials/footer') %>
+    <script src='javascripts/script.js'></script>
+  <script>
+includeHTML();
+</script>
+  </body>
+</html>

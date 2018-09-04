@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Blokken</title>
+    <link rel='stylesheet' href='/stylesheets/<%= config.thema%>/css/style.css'>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css?family=Lato|Open+Sans|Roboto" rel="stylesheet">
+    <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
+  
+    <script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
+    <script type="text/javascript" src="javascripts/tinymce/tinymce.min.js"></script>
+    <script type="text/javascript">
+        tinymce.init({
+            selector: '#myTextarea'
+        });
+    </script>
+</head>
+<style>
+    header{
+        background-image: url("/images/");
+    }
+
+</style>
+<body>
+<%- include('partials/backendNav') %>
+
+
+    <div class="containerBackEnd">
+      <div class="left col-2">
+          <%- include('partials/smartNav') %>
+      </div>
+      <div class="right col-10">
+        <h1>Alle artikels</h1>
+
+        <% for (var i = 0; i < artikels.length; i ++) {%>
+        <div class="artikel" style="display: block; width: 100%; overflow: hidden; margin-top: 10px;">
+          
+          <p style="float: left; width: 20%;"><%=artikels[i].naam%></p>
+          <p style="float: left; width: 20%;"><b>Categorie:</b> <%=artikels[i].categorie%></p>
+          <a style="float: right; margin-left: 20px;" href="./deleteArtikel/<%= artikels[i].naam%>"><i class="fas fa-trash-alt"></i></a>
+          <a style="float: right;" href="/artikels/<%=artikels[i].naam%>"><i class="fas fa-pencil-alt"></i></a>
+          
+        </div>
+        
+        <%}%>
+        
+
+      </div>
+    </div>
+
+    <script src='javascripts/jquery.min.js'></script>
+    <script type="text/javascript">
+
+    </script>
+  </body>
+  </html>

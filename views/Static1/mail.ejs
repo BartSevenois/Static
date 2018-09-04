@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>New blok</title>
+    <link rel='stylesheet' href='/stylesheets/<%= config.thema%>/css/style.css'>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
+    <script type="text/javascript" src="javascripts/tinymce/tinymce.min.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Lato|Open+Sans|Roboto" rel="stylesheet">
+    
+
+</head>
+
+<style>
+    header{
+        background-image: url("/images/");
+    }
+
+</style>
+<script type="text/javascript">
+        tinymce.init({
+            selector: '#myTextarea'
+        });
+        function includeHTML() {
+  var z, i, elmnt, file, xhttp;
+  /*loop through a collection of all HTML elements:*/
+  z = document.getElementsByTagName("*");
+  for (i = 0; i < z.length; i++) {
+    elmnt = z[i];
+    /*search for elements with a certain atrribute:*/
+    file = elmnt.getAttribute("w3-include-html");
+    if (file) {
+      /*make an HTTP request using the attribute value as the file name:*/
+      xhttp = new XMLHttpRequest();
+      xhttp.onreadystatechange = function() {
+        if (this.readyState == 4) {
+          if (this.status == 200) {elmnt.innerHTML = this.responseText;}
+          if (this.status == 404) {elmnt.innerHTML = "Page not found.";}
+          /*remove the attribute, and call this function once more:*/
+          elmnt.removeAttribute("w3-include-html");
+          includeHTML();
+        }
+      }      
+      xhttp.open("GET", file, true);
+      xhttp.send();
+      /*exit the function:*/
+      return;
+    }
+  }
+};
+    </script>
+<body>
+
+<%- include('partials/backendNav') %>
+
+    <div class="containerBackEnd">
+      <div class="left col-2">
+          <%- include('partials/smartNav') %>
+      </div>
+      <div class="right col-10 alleMails">
+        <h1 class="">Mails</h1>
+        <% if (mails != 'undefined'){%>
+        <% for (var i = 0; i < mails.length; i ++) {%>
+          <div class="email">
+            <a href="./mail/<%= mails[i].naam%>">
+            <div class="groep">
+              <p class="naam"><%= mails[i].naamVerzender%></p>
+              <div class="onderwerp">  - <%= mails[i].onderwerp%></div>
+            </div>
+            <p class="bericht" w3-include-html="../../data/mail/HTML/<%= mails[i].naam%>.html"></p>
+    
+          </a>
+          </div>
+        <%}%>
+        <%} else {%>
+        <p>Mailbox is leeg</p>
+        <%}%>
+
+          
+      </div>
+    </div>
+     <script>
+includeHTML();
+</script>
+  </body>
+  </html>
+
+
+

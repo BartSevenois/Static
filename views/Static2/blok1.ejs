@@ -1,0 +1,55 @@
+<!-- Type 1 -->
+<style type="text/css">
+  <%if (checked == false){%>
+    .<%= html%>{
+      background-color: <%= backgroundColor%>;
+    }
+  <%} else if(checked == true){%>
+    .<%= html%>{
+      background-image: url('images/<%= achtergrondafbeelding%>');
+      background-repeat: no-repeat;
+      background-attachment: scroll;
+      background-position: center; 
+      background-size: cover; 
+    }
+    .overlay {
+      background: rgba(0,0,0,0.6); 
+      overflow: hidden; 
+      height: 100%; 
+      z-index: 2; 
+    }
+  <%}%>
+      
+      
+  .<%= html%> h1 {
+    color: <%= titelColor%>;
+  }
+  .<%= html%> .tekst {
+    color: <%= tekstColor%>;
+  }
+  .<%= html%> h1:before{
+      border-bottom: 3px solid <%= titelColor%> !important;
+  }
+</style>
+
+<div class="blok <%= html%> afbeeldingEnTekstBlok">
+  <div class = " <%= html%>">
+    <div class="outer">
+      <div class="middle">
+        <div class="titelTekst">
+          <h1 class=""><%= title%></h1>
+          
+          <div class="tekst" w3-include-html="../../data/blokken/HTML/<%= html%>.html"></div>
+        </div>
+      </div>
+    </div>
+    <div class="afbeelding overlay">
+      <img src="/images/<%= afbeelding%>">
+    </div>
+   
+        
+  </div>
+  
+</div>
+
+

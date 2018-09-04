@@ -1,0 +1,130 @@
+<!-- Type 1 -->
+<style type="text/css">
+  .<%= html%> .contactGegevens{
+    background-color: <%= blok.kleurContactgegevens%> !important;
+  }
+  .<%= html%> .btn {
+    background-color: <%= blok.kleurContactgegevens%> !important;
+  }
+  .<%= html%>.contactBlok {
+    background-color: <%= blok.backgroundColor%> !important;
+  }
+  .<%= html%>.contactBlok .contactGegevens li p {
+    color: <%= blok.tekstColor%> !important;
+  }
+
+  .<%= html%>.contactBlok h1 {
+    color: <%= blok.titelColor%> !important;
+  }
+  .<%= html%> .ik {
+    background-color: <%= blok.iconAchterColor%> !important;
+
+  }
+  <%if (blok.checked == false){%>
+    .<%= html%>{
+      background-color: <%= blok.backgroundColor%>;
+    }
+  <%} else if(blok.checked == true){%>
+    .<%= html%>{
+      background-image: url('images/<%= blok.backgroundImage%>');
+      background-repeat: no-repeat;
+      background-attachment: scroll;
+      background-position: center; 
+      background-size: cover; 
+    }
+    .overlay.<%= html%> {
+      background: rgba(0,0,0,0.6); 
+      overflow: hidden; 
+      height: 100%; 
+      z-index: 2; 
+    }
+  <%}%>
+</style>
+<div class="blok <%= html%> contactBlok">
+  <div class = "overlay <%= html %>">
+    <div class="centerBlok" >
+      
+      <div class="braka">
+        <div class="email">
+          <h1 class="" style="font-size: 32px; text-align: left;"><%= blok.titel%></h1>
+          <form  name="myForm" class="mail" action="/verzendMail" method="POST" onsubmit="return validateEmail()">
+            <span class="err" id="errEmail"></span>
+            <input onchange="" class="col-12" type="text" name="emailAdres" placeholder="Email adres">
+            <span class="err" id="errNaam"></span>
+            <input class="col-12" type="text" name="naam" placeholder="Naam">
+            <span class="err" id="errOnderwerp"></span>
+            <input class="col-12" type="text" name="onderwerp" placeholder="Onderwerp">
+            <textarea class="test" name="bericht" placeholder="Bericht..."></textarea>
+            <div class="buttonHolder">
+              <button class="btn">Verzenden</button>
+            </div>
+            
+          </form>
+        </div>
+        <div class="contactGegevens">
+          <div id="map" style="width:100%;height:300px;background:yellow"></div>
+          <ul>
+            <li><a href="tel:<%= blok.gsmNr%>"><span style="background-color: <%= blok.iconAchterColor%>"><i style="color: <%= blok.iconColor%>" class="fas fa-mobile-alt icon"></i></span><p><%= blok.gsmNr%></p></a></li>
+            <li><span style="background-color: <%= blok.iconAchterColor%>"><i  style="color: <%= blok.iconColor%>"class="fas fa-phone icon"></i></i></span><p><%= blok.telNr%></p></li>
+            <li><span style="background-color: <%= blok.iconAchterColor%>"><i style="color: <%= blok.iconColor%>" class="fas fa-map-marker-alt icon"></i></span><p><%= blok.adres%></p></li>
+            <li><a href="mailto:<%= blok.emailAdres%>"><span style="background-color: <%= blok.iconAchterColor%>"><i style="color: <%= blok.iconColor%>" class="far fa-envelope icon"></i></span><p><%= blok.emailAdres%></p></a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+var locatie = '<%= blok.adres%>';
+var map;
+function initMap() {
+        map = new google.maps.Map(document.getElementById('map'), {
+          center: {lat: -34.397, lng: 150.644},
+          zoom: 8
+        });
+        map.setZoom(14);
+        geocoder = new google.maps.Geocoder();
+         geocoder.geocode( { 'address': locatie}, function(results, status) {
+          if (status == google.maps.GeocoderStatus.OK) {
+            map.setCenter(results[0].geometry.location);
+            var marker = new google.maps.Marker({
+                map: map,
+                position: results[0].geometry.location
+            });
+          } else {
+            alert('Geocode was not successful for the following reason: ' + status);
+          }
+        });
+      }
+    </script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAfmwBPy8qyy1kGyqgXiCznQK5wOcBW__I&callback=initMap"
+    async defer></script>  
+<script>
+
+function validateEmail() {
+    var emailAdres = document.forms["myForm"]["emailAdres"].value;
+    var naam = document.forms["myForm"]["naam"].value;
+    var onderwerp = document.forms["myForm"]["onderwerp"].value;
+    if (isEmpty(emailAdres)) {
+      document.getElementById("errEmail").textContent="Geef een email adres mee";
+    } 
+    if (isEmpty(naam)){
+      document.getElementById("errNaam").textContent="Geef een naam mee";
+    } 
+    if (isEmpty(onderwerp)){
+      document.getElementById("errOnderwerp").textContent="Geef een onderwerp mee";
+    }
+
+    if(isEmpty(emailAdres) || isEmpty(naam) || isEmpty(onderwerp)) {
+      return false;
+    }
+}
+
+function isEmpty(test) {
+  if (test == "") {
+    return true;
+  } else {
+    return false;
+  }
+}
+</script>

@@ -3,7 +3,8 @@ function validateContact() {
   var gsmNr = document.forms["contactForm"]["gsmNr"].value;
   var adres = document.forms["contactForm"]["adres"].value;
   var emailAdres = document.forms["contactForm"]["emailAdres"].value;
-
+  var titel = document.forms["contactForm"]["titel"].value;
+  var huidigeNaam = document.forms["contactForm"]["huidigeNaam"].value;
   if(containsName(name)|| isEmpty(name)) {
     if (containsName(name)) {
       document.getElementById("errNaam").textContent="Naam blok bestaat al";
@@ -32,75 +33,151 @@ function validateContact() {
     document.getElementById("errEmailAdres").textContent="";
   }
 
-  if(isEmpty(name) || containsName(name) || isEmpty(gsmNr) || isEmpty(adres) || isEmpty(emailAdres)) {
-    if (containsName(name)){
-      if (nieuw === "true") {
-        return false;
-      } else {
-        return true;
-      }
-    } else {
+
+  if (isEmpty(titel)){
+    document.getElementById("errTitel").textContent="Dit veld is verplicht";
+  } else {
+    document.getElementById("errTitel").textContent=""; 
+  }
+
+  if (containsName(name)){
+    if (nieuw === "true"){
       return false;
-    }
-  }
-}
-
-function validateAfbeeldingEnTekst() {
-  var name = document.forms["afbeeldingEnTekstForm"]["name"].value;
-  var ImgName = document.forms["afbeeldingEnTekstForm"]["afbeelding1"].value;
-  if (isEmpty(name) || containsName(name)) {
-    if (isEmpty(name)){
-      document.getElementById("errNaam").textContent="Dit veld is verplicht";
-    } else if(nieuw === "true") {
-      if(containsName(name)){
-        document.getElementById("errNaam").textContent="Naam blok bestaat al";
-      }
-      
-    }
-  } else {
-    document.getElementById("errNaam").textContent="";
-  }
-
-  if (isEmpty(ImgName)) {
-    document.getElementById("errAfbeelding").textContent="Voeg een afbeelding toe";
-  } else {
-    document.getElementById("errAfbeelding").textContent="";
-  }
-
-  if (isEmpty(name) || containsName(name) || isEmpty(ImgName)) {
-    if (containsName(name)) {
-      if (nieuw === "true") {
-        return false;
+    } else {
+      if (huidigeNaam === name) {
+        if (isEmpty(name)){
+          return false;
+        } else if(isEmpty(titel)){
+          return false;
+        } else if(isEmpty(gsmNR)){
+          return false;
+        } else if(isEmpty(adres)){
+          return false;
+        } else if(isEmpty(emailAdres)){
+          return false;
+        } else {
+          return true;
+        }
+        
       } else {
-        return true;
+        return false
       }
     }
+  } else if (isEmpty(titel)){
     return false;
-  } 
+  } else if (isEmpty(name)) {
+    return false;
+  } else if(isEmpty(gsmNR)){
+    return false;
+  } else if(isEmpty(adres)){
+      return false;
+  } else if(isEmpty(emailAdres)){
+      return false;
+  } else {
+      return true;
+  }
 }
+
 
 function validateTekst() {
   var name = document.forms["tekstForm"]["name"].value;
-  if (isEmpty(name) || containsName(name)) {
-    if (isEmpty(name)){
-      document.getElementById("errNaam").textContent="Dit veld is verplicht";
-    } else if(containsName(name)) {
+  if (bloktype === "kolom"){
+    var titel = document.forms["tekstForm"]["kak"].value;
+  } else {
+    var titel = document.forms["tekstForm"]["titel"].value;
+  }
+  
+  console.log(titel);
+  var huidigeNaam = document.forms["tekstForm"]["huidigeNaam"].value;
+  if (isEmpty(name)){
+    document.getElementById("errNaam").textContent="Dit veld is verplicht";
+  } 
+  else if (containsName(name)){
+    if (nieuw === "true"){
       document.getElementById("errNaam").textContent="Naam blok bestaat al";
-    }
+    } else if (nieuw === "false") {
+      if (huidigeNaam === name){
+        document.getElementById("errNaam").textContent="";
+      } else {
+        document.getElementById("errNaam").textContent="Naam blok bestaat al";
+      }
+      
+    } 
   } else {
     document.getElementById("errNaam").textContent="";
   }
-  if (isEmpty(name) || containsName(name)) {
-    if (containsName(name)){
-      if (nieuw === "true") {
-        return false;
-      } else {
-        return true;
-      }
-    } else {
+
+  if (isEmpty(titel)){
+    document.getElementById("errTitel").textContent="Dit veld is verplicht";
+  } else {
+    document.getElementById("errTitel").textContent=""; 
+  }
+
+  if (containsName(name)){
+    if (nieuw === "true"){
       return false;
+    } else {
+      if (huidigeNaam === name) {
+        if (isEmpty(name)){
+          return false;
+        } else if(isEmpty(titel)){
+          return false;
+        } else {
+          return true;
+        }
+        
+      } else {
+        return false
+      }
     }
-    
- 
+  } else if (isEmpty(titel)){
+    return false;
+  } else if (isEmpty(name)) {
+    return false;
+  } else {
+    return true;
+  }
+
+}
+
+function validateKolom() {
+  var name = document.forms["kolomForm"]["name"].value;
+  
+  if (isEmpty(name)){
+    document.getElementById("errNaam").textContent="Dit veld is verplicht";
   } 
+  else if (containsName(name)){
+    if (nieuw === "true"){
+      document.getElementById("errNaam").textContent="Naam blok bestaat al";
+    } else if (nieuw === "false") {
+      if (huidigeNaam === name){
+        document.getElementById("errNaam").textContent="";
+      } else {
+        document.getElementById("errNaam").textContent="Naam blok bestaat al";
+      }
+      
+    } 
+  } else {
+    document.getElementById("errNaam").textContent="";
+  }
+  if (containsName(name)){
+    if (nieuw === "true"){
+      return false;
+    } else {
+      if (huidigeNaam === name) {
+        if (isEmpty(name)){
+          return false;
+        } else {
+          return true;
+        }
+        
+      } else {
+        return false
+      }
+    }
+  }  else if (isEmpty(name)) {
+    return false;
+  } else {
+    return true;
+  }
 }

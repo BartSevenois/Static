@@ -1,0 +1,54 @@
+<style type="text/css">
+  .blok.<%= html%> {
+    background-color: <%= blok.backgroundColor%>;
+  }
+  .<%= html%> .kolom {
+    background-color: <%= blok.backgroundColorKolom%>;
+  }
+  .<%= html%> h1 {
+    color: <%= blok.titelColor%>;
+  }
+  .<%= html%> .kolom .titel {
+    color:  <%= blok.titelKleurKolom%>
+  }
+  .<%= html%> .kolom .beschrijving {
+    color:  <%= blok.tekstKleurKolom%>
+  }
+  <%if (blok.checked == false){%>
+    .<%= html%>{
+      background-color: <%= blok.backgroundColor%>;
+    }
+  <%} else if(blok.checked == true){%>
+    .<%= html%>{
+      background-image: url('images/<%= blok.backgroundImage%>');
+      background-repeat: no-repeat;
+      background-attachment: scroll;
+      background-position: center; 
+      background-size: cover; 
+    }
+    .overlay.<%= html%> {
+      background: rgba(0,0,0,0.6); 
+      overflow: hidden; 
+      height: 100%; 
+      z-index: 2; 
+    }
+  <%}%>
+</style>
+<div class="blok <%= html%> kolomBlok">
+  <div class = "overlay">
+    <div class="centerBlok" >
+      <h1 class="col-12"><%= blok.titel%></h1>
+      <% for(var i=0; i < blok.kolomen.length; i++){%>
+      <div class="col-4 col-ts-6 col-ss-12 ">
+        <div class="kolom">
+          <div class="afbeelding" style="background-image:url(images/<%= blok.kolomen[i].afbeelding%>);"></div>
+          <p  class="titel" style=""><%= blok.kolomen[i].titel%></p>
+          <div class="beschrijving" style="" w3-include-html="../../data/blokken/HTML/<%= blok.name.replace(/\s/g,'')%>/<%= blok.kolomen[i].beschrijving%>.html"></div>
+        </div>
+        
+      </div>
+      <%}%>
+    </div>
+  </div>
+</div>
+

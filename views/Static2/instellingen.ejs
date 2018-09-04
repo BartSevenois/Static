@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Blokken</title>
+    <link rel='stylesheet' href='/stylesheets/<%= config.thema%>/css/style.css'>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
+    <script type="text/javascript" src="../javascripts/tinymce/tinymce.min.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Lato|Open+Sans|Roboto" rel="stylesheet">
+
+</head>
+<style>
+    header{
+        background-image: url("/images/");
+    }
+    /* The Modal (background) */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    padding-top: 100px; /* Location of the box */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+    overflow: hidden;
+}
+
+/* Modal Content */
+.modal-content {
+    background-color: #fefefe;
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+    overflow: hidden;
+}
+
+/* The Close Button */
+.close {
+    color: #aaaaaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+}
+</style>
+<body>
+<%- include('partials/backendNav') %>
+
+
+    <div class="containerBackEnd">
+      <div class="left col-2">
+          <%- include('partials/smartNav') %>
+      </div>
+      <div class="right col-10">
+        <h1 class="col-12">Instellingen</h1>
+        <form action="/instellingenOpslaan" method="POST" class="col-12 formulier">
+          <label>Naam site</label> 
+          <input class="textfield" type="text" name="title" value="<%= config.sitename%>">
+          <label>Auteur</label> 
+          <input class="textfield" type="text" name="auteur" value="<%= config.auteur%>">
+          <label>Slogan</label> 
+          <input class="textfield" type="text" name="slogan" value="<%= config.slogan%>">
+
+          <div class="imageFile box">
+              <span style="display: block; margin-bottom: 10px">Header afbeelding</span>
+              <span>File</span>
+              <input class="textfield" type="text" id = "imgName" name="headerImage" value="<%= config.headerImage%>">
+              <a id="myBtn" class="openImages">Afbeeldingen</a>
+
+              <img id="myImg" src="images/<%= config.headerImage%>">
+              <div id="myModal" class="modal">
+
+                <!-- Modal content -->
+                <div class="modal-content">
+                  <div class="test" style="z-index: 999">oki</div>
+                  <span class="close">&times;</span>
+                  <% var id = 1%>
+                  <% for (var i = 0; i < images.length; i ++) {%>
+          
+          <div  class="imageBox" id = "imageBox">
+            <div onclick="ok(this.id)" class="img" id = "<%= id%>"  style="background-image:url(images/<%= images[i]%>);" value="ok" ></div>
+          </div>
+
+
+
+          <% id += 1 %>
+
+
+
+          
+        <%}%>
+
+                </div>
+
+              </div>
+            </div>
+          
+          <label>Logo</label> 
+          <input class="textfield" type="text" name="logo" value="<%= config.logo%>"><br>
+          <label>Thema</label>
+          <select id="selectNumber" name="thema">
+            <% for (var i = 0; i < themas.length; i ++) {%>
+            <option value="<%= themas[i]%>"><%= themas[i]%></option>
+            <%}%>
+           </select>
+          
+          <button type="submit" class="btn">Opslaan</button>
+        </form>
+
+        
+        
+      </div>
+    </div>
+    <script src='javascripts/jquery.min.js'></script>
+<script>
+$("#selectNumber").val("<%= config.thema%>").trigger("change");
+// Get the modal
+var modal = document.getElementById('myModal');
+
+// Get the button that opens the modal
+var btn = document.getElementById("myBtn");
+var div = document.getElementById("img");
+// Get the <span> element that closes the modal
+var span = document.getElementsByClassName("close")[0];
+
+
+// When the user clicks the button, open the modal 
+btn.onclick = function() {
+    modal.style.display = "block";
+}
+
+
+// When the user clicks on <span> (x), close the modal
+span.onclick = function() {
+    modal.style.display = "none";
+}
+
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+    if (event.target == modal) {
+        modal.style.display = "none";
+    }
+}
+
+
+function ok(ok) {
+  var img = document.getElementById(ok),
+ style = img.currentStyle || window.getComputedStyle(img, false),
+ bi = style.backgroundImage.slice(4, -1).replace(/"/g, "");
+ bi = bi.replace("http://localhost:3000/images/", "");
+ document.getElementById("imgName").value = bi;
+ document.getElementById("myImg").src = "images/" + bi;
+modal.style.display = "none";
+     //var filename = fullPath.replace(/^.*[\\\/]/, '');
+     // or, try this, 
+     // var filename = fullPath.split("/").pop();
+
+    //document.getElementById("result").value = filename;
+}
+
+
+</script>
+  </body>
+  </html>
+
+
