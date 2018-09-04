@@ -1,0 +1,10 @@
+name: Voorbeeldblok 2
+titel: Voorbeeld blok (2)
+html: Voorbeeldblok2
+bloktype: tekst
+backgroundColor: '#ffffff'
+titelColor: '#ffffff'
+tekstColor: '#ffffff'
+backgroundImage: connection-gauge-indoors-586019.jpg
+checked: true
+id: 2

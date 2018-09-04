@@ -1,7 +1,7 @@
-name: Over ons
-titel: Over ons
-afbeelding: connection-gauge-indoors-586019.jpg
-html: Overons
+name: Blok 1
+titel: Voorbeeld blok (1)
+afbeelding: ventilatie.png
+html: Blok1
 bloktype: afbeelingEnTekst
 backgroundColor: '#ffffff'
 titelColor: '#323232'
