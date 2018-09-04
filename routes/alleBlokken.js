@@ -9,7 +9,7 @@ var fs = require('fs');
 /* GET users listing. */
 router.get('/', function(req, res, next) {
 	var configYaml = yaml.load(fs.readFileSync('config.yml', {encoding: 'utf-8'}));
-    res.render('alleBLokken', {
+    res.render('alleBlokken', {
     	config: configYaml
     });
 });
